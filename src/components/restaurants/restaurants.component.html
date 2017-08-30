@@ -1,0 +1,12 @@
+<button (click)="test()">test 2</button>
+<div *ngFor="let restaurant of restaurants">
+  <h3>{{ restaurant.name }}</h3>
+  <div >
+    id: {{ restaurant.id }}
+    <div>
+      <button ion-button (click)="selectRestaurant(restaurant)">
+      Select
+    </button>
+    </div>
+  </div>
+</div>

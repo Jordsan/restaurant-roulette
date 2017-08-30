@@ -1,0 +1,17 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div *ngFor="let restaurant of recentRestaurants">
+    <h3>{{ restaurant.name }}</h3>
+    <div>
+      id: {{ restaurant.id }}
+    </div>
+  </div>
+</ion-content> 

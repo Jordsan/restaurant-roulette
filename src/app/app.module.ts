@@ -5,12 +5,25 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+
+import { TabsPage } from '../pages/tabs/tabs'
+import { RoulettePage } from '../pages/roulette/roulette';
+import { PreferencesPage } from '../pages/preferences/preferences'
+import { ProfilePage } from '../pages/profile/profile'
+
+import { RestaurantsComponent } from '../components/restaurants/restaurants.component';
+import { RouletteComponent } from '../components/roulette/roulette.component';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    PreferencesPage,
+    RoulettePage,
+    ProfilePage,
+    TabsPage,
+    RestaurantsComponent,
+    RouletteComponent
   ],
   imports: [
     BrowserModule,
@@ -19,12 +32,15 @@ import { HomePage } from '../pages/home/home';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    TabsPage,
+    PreferencesPage,
+    RoulettePage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}

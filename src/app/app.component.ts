@@ -3,12 +3,22 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
+import { TabsPage } from '../pages/tabs/tabs';
+
+
+import { PreferencesFilterService } from '../services/preferences-filter/preferences-filter.service';
+import { RestaurantsService } from '../services/restaurants/restaurants.service';
+import { ProfileService } from '../services/profile/profile.service';
+import { RouletteService } from '../services/roulette/roulette.service';
+
+
+
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [PreferencesFilterService, RestaurantsService, ProfileService, RouletteService],
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage: any = TabsPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -18,5 +28,7 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
+  
 }
 

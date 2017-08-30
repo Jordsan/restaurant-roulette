@@ -1,0 +1,14 @@
+<div>
+  <button (click)="generateRestaurant()">Generate Restaurant</button>
+  <div *ngIf="displayedRestaurant">
+    <h3>{{ displayedRestaurant.name }}</h3>
+    <div >
+      id: {{ displayedRestaurant.id }}
+      <div>
+        <button ion-button (click)="selectDisplayedRestaurant(displayedRestaurant)">
+        Select
+      </button>
+      </div>
+    </div>
+  </div>
+</div>

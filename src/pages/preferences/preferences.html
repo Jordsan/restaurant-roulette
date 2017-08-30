@@ -1,0 +1,35 @@
+<!--
+  Generated template for the PreferencesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>preferences</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="chinesePreference" (ionChange)="updatePreferences('chinesePreference', chinesePreference)"></ion-checkbox>
+      <ion-label>Chinese</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="mexicanPreference" (ionChange)="updatePreferences('mexicanPreference', mexicanPreference)"></ion-checkbox>
+      <ion-label>Mexican</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="italianPreference" (ionChange)="updatePreferences('italianPreference', italianPreference)"></ion-checkbox>
+      <ion-label>Italian</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox [(ngModel)]="americanPreference" (ionChange)="updatePreferences('americanPreference', americanPreference)"></ion-checkbox>
+      <ion-label>American</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
