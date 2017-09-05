@@ -21,10 +21,7 @@ export class RouletteService {
         this.recentRestaurants = new Array();        
     }
 
-    //tie in recently selected restaurants
-    //  tags of recently selected
-    //     -> get most used tags
-    //     -> find restaurant with most connections to prev selected list
+   
 
 
 
@@ -45,6 +42,8 @@ export class RouletteService {
     // make new map? for top 5?
 
     // differentiate parts of chooseRestaurant() into own methods?
+
+    // set master and recent lists outside of chooseRestaurant function?
 
     logMapElements(value, key, map) {
         console.log(`MAP: [${key}] = ${value}`);
@@ -76,7 +75,31 @@ export class RouletteService {
                 }
             }
 
-            tagsMap.forEach(this.logMapElements);
+            //tagsMap.forEach(this.logMapElements);
+
+            let topTags: Array<string> = new Array();
+            let max: number = 0;
+            let tempKey: string;
+
+            for (let entry of Array.from(tagsMap.entries())) {
+                let key = entry[0];
+                let value = entry[1];
+
+                console.log(`MAP: [${key}] = ${value}`);
+                
+            }
+            
+            /*
+            for (let key in tagsMap){
+   
+                // if not in toptags...
+                if (tagsMap[key] > max){
+                    tempKey = key;
+                    //toptags.append../
+                }
+            }
+            */
+            
 
         }
         else if (this.masterFilteredList.length == 0){
