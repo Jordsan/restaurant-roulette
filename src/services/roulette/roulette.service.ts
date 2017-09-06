@@ -16,12 +16,12 @@ export class RouletteService {
         private preferencesFilterService: PreferencesFilterService,
         private profileService: ProfileService
     ) {
-        this.restaurants = new Array();   
-        this.masterFilteredList = new Array();        
-        this.recentRestaurants = new Array();        
+        this.restaurants = new Array();
+        this.masterFilteredList = new Array();
+        this.recentRestaurants = new Array();
     }
 
-   
+
 
 
 
@@ -45,9 +45,19 @@ export class RouletteService {
 
     // set master and recent lists outside of chooseRestaurant function?
 
+    // maybe do the scoring in an order like this or something:
+    //   - first pass through = set scores based on just preferences
+    //   - second pass through add to scores based on recent restaurants' tags
+    //   - add in other probability factors?
+
+
+    // more than 5 top tags?
+
+
     logMapElements(value, key, map) {
         console.log(`MAP: [${key}] = ${value}`);
     }
+
 
     chooseRestaurant(): Restaurant {
         this.masterFilteredList = this.preferencesFilterService.getFilteredRestaurants();
@@ -64,9 +74,9 @@ export class RouletteService {
             let tagsMap: Map<string, number> = new Map<string, number>();
 
             //create map of tags with # of occurences in recents
-            for (let restaurant of this.recentRestaurants){
-                for (let tag of restaurant.tags){
-                    if (tagsMap.has(tag)){
+            for (let restaurant of this.recentRestaurants) {
+                for (let tag of restaurant.tags) {
+                    if (tagsMap.has(tag)) {
                         tagsMap.set(tag, tagsMap.get(tag) + 1);
                     }
                     else {
@@ -75,41 +85,44 @@ export class RouletteService {
                 }
             }
 
-            //tagsMap.forEach(this.logMapElements);
+            tagsMap.forEach(this.logMapElements);
 
             let topTags: Array<string> = new Array();
-            let max: number = 0;
+            let tempMax: number = 0;
             let tempKey: string;
 
-            for (let entry of Array.from(tagsMap.entries())) {
-                let key = entry[0];
-                let value = entry[1];
 
-                console.log(`MAP: [${key}] = ${value}`);
-                
-            }
-            
-            /*
-            for (let key in tagsMap){
-   
-                // if not in toptags...
-                if (tagsMap[key] > max){
-                    tempKey = key;
-                    //toptags.append../
+            for (let i = 0; i < 10; i++) {
+                for (let entry of Array.from(tagsMap.entries())) {
+                    let key = entry[0];
+                    let value = entry[1];
+
+                    if (!(topTags.includes(key))) {
+                        if (value > tempMax) {
+                            tempKey = key;
+                            tempMax = value;
+                        }
+                    }
+
                 }
+                topTags.push(tempKey);                    
+                tempKey = "";
+                tempMax = 0;
             }
-            */
-            
+
+            console.log(topTags);
+
+
 
         }
-        else if (this.masterFilteredList.length == 0){
+        else if (this.masterFilteredList.length == 0) {
             console.log("do something about this eventually");
         }
         else {
             let randomIndex = Math.floor(Math.random() * (this.masterFilteredList.length));
             console.log("Index: " + randomIndex);
-            console.log("Restaurant: \n  id: " + this.masterFilteredList[randomIndex].id 
-                        + "\n  name: " + this.masterFilteredList[randomIndex].name);
+            console.log("Restaurant: \n  id: " + this.masterFilteredList[randomIndex].id
+                + "\n  name: " + this.masterFilteredList[randomIndex].name);
             return this.masterFilteredList[randomIndex];
         }
     }
