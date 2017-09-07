@@ -1,18 +1,4 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>
-      Restaurant Roulette dev
-    </ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-  <ion-tabs #menuTabs class="menuTabs" selectedIndex="1">
-    <ion-tab tabTitle="Preferences" [root]="preferencesPage" ></ion-tab>
-    <ion-tab tabTitle="Roulette" [root]="roulettePage" (ionSelect)="getFilteredRestaurants()"></ion-tab>
-    <ion-tab tabTitle="Profile" [root]="profilePage" (ionSelect)="test()"></ion-tab>
-  </ion-tabs>
-</ion-content>
+<ion-tabs [selectedIndex]="mySelectedIndex" #menuTabs class="menuTabs" >
+  <ion-tab tabTitle="Roulette" [root]="roulettePage" (ionSelect)="getFilteredRestaurants()"></ion-tab>
+  <ion-tab tabTitle="Profile" [root]="profilePage" (ionSelect)="test()"></ion-tab>
+</ion-tabs>

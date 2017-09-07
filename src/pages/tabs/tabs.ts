@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { PreferencesPage } from '../preferences/preferences';
 import { RoulettePage } from '../roulette/roulette';
 import { ProfilePage } from '../profile/profile';
 
@@ -16,23 +15,27 @@ import { ProfileService } from '../../services/profile/profile.service';
 })
 export class TabsPage {
 
-  preferencesPage: any = PreferencesPage;
   roulettePage: any = RoulettePage;
   profilePage: any = ProfilePage;
+
+  mySelectedIndex: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private restaurantsService: RestaurantsService,
     private preferencesFilterService: PreferencesFilterService,
-    private profileService: ProfileService)
-  {};
+    private profileService: ProfileService){
+      this.mySelectedIndex = navParams.data.tabIndex || 0;
+    };
 
 
+
+  // need to figure out how to bind this to the side menu somehow
   getFilteredRestaurants(): void {
     this.preferencesFilterService.filterRestaurants();
 
     for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
       console.log(restaurant.name);
-    }
+    } 
   }
 
   test():void {

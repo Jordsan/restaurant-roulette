@@ -1,1 +1,33 @@
- <ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content" id="roulette-menu">
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title class="header">Preferences</ion-title>
+            <button class="menu-button" ion-item menuClose="roulette-menu">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <ion-list>
+            <ion-item>
+                <ion-checkbox [(ngModel)]="chinesePreference" (ionChange)="updatePreferences('chinesePreference', chinesePreference)"></ion-checkbox>
+                <ion-label>Chinese</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-checkbox [(ngModel)]="mexicanPreference" (ionChange)="updatePreferences('mexicanPreference', mexicanPreference)"></ion-checkbox>
+                <ion-label>Mexican</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-checkbox [(ngModel)]="italianPreference" (ionChange)="updatePreferences('italianPreference', italianPreference)"></ion-checkbox>
+                <ion-label>Italian</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-checkbox [(ngModel)]="americanPreference" (ionChange)="updatePreferences('americanPreference', americanPreference)"></ion-checkbox>
+                <ion-label>Amerzican</ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+
+</ion-menu>
+<ion-nav [root]="rootPage" #content></ion-nav>
