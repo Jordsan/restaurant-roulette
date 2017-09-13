@@ -30,13 +30,7 @@ export class TabsPage {
 
 
   // need to figure out how to bind this to the side menu somehow
-  getFilteredRestaurants(): void {
-    this.preferencesFilterService.filterRestaurants();
-
-    for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
-      console.log(restaurant.name);
-    } 
-  }
+ 
 
   test():void {
     for (let restaurant of this.profileService.getRecentsList()) {

@@ -23,27 +23,6 @@ export class RouletteService {
 
 
 
-
-    
-
-
-
-    // IDEA FOR CHOOSING RESTAURANTS:
-    // every restaurant has an associated probability
-    // choose restaurant with highest probability, then suggest the next highest, etc...
-    // probability is even for all restaurants if no recents
-    //      -> maybe this will change if you can rank how badly you want certain preferences to affect shit, etc
-    // if recents restaurants list exists:
-    //      -> enhance probability of choosing a restaurant if it has a lot of tag matches with the
-    //           tags that are the most common 5 tags among the recent restaurants list
-
-
-    // maybe assign positive integer points to each restaurant
-    // for each tag match with a preference, +1 point?
-    // for each tag match with top 5? tags of recents = +1 point?
-
-    // make new map? for top 5?
-
     // differentiate parts of chooseRestaurant() into own methods?
 
     // set master and recent lists outside of chooseRestaurant function?
@@ -54,12 +33,22 @@ export class RouletteService {
     //   - add in other probability factors?
 
 
-    // more than 5 top tags?
+    // IF YOU DENY -> NEGATIVE PROBABILITY
+
+
+    // NEED TO MAKE THE LIST JUST BE SET GLOBALLY AND THEN RUN THROUGH THE LIST ONE BY ONE POPPING
+    // OFF THE NEXT ELEMENT
+    //   -> right now it will just keep re-appending the list of data so its not working properly yet
 
 
     logMapElements(value, key, map) {
         console.log(`MAP: [${key}] = ${value}`);
     }
+
+    logRestaurantScore(value, key, map) {
+        console.log(`MAP: [${key.name}] = ${value}`);
+    }
+
 
 
     chooseRestaurant(): Restaurant {
@@ -75,6 +64,7 @@ export class RouletteService {
 
         if (this.recentRestaurants.length > 0) {
             let tagsMap: Map<string, number> = new Map<string, number>();
+            let restaurantScoreMap: Map<Restaurant, number> = new Map<Restaurant, number>();
 
             //create map of tags with # of occurences in recents
             for (let restaurant of this.recentRestaurants) {
@@ -115,7 +105,52 @@ export class RouletteService {
 
             console.log(topTags);
 
+            for (let restaurant of this.masterFilteredList){
+                for (let tag of restaurant.tags){
+                    for (let topTag of topTags){
+                        if (tag == topTag){
+                            if (restaurantScoreMap.has(restaurant)){
+                                restaurantScoreMap.set(restaurant, restaurantScoreMap.get(restaurant) + 1)
+                                console.log("SETTING KEY: " + restaurant.name + " [" + restaurantScoreMap.get(restaurant) + "]");
+                                console.log("   tag-match: " + topTag)
+                            }
+                            else {
+                                restaurantScoreMap.set(restaurant, 1);
+                                console.log("CREATING KEY: " + restaurant.name + " [1]");
+                                console.log("   tag-match: " + topTag)
+                            }
+                        }
+                    }
+                }
+            }
+            
 
+            restaurantScoreMap.forEach(this.logRestaurantScore);
+
+            tempMax = 0;
+            let tempRestaurant: Restaurant;
+
+            for (let i = 0; i < restaurantScoreMap.size; i++) {
+                for (let entry of Array.from(restaurantScoreMap.entries())) {
+                    let key = entry[0];
+                    let value = entry[1];
+
+                    if (!(this.restaurants.includes(key))) {
+                        if (value > tempMax) {
+                            tempRestaurant = key;
+                            tempMax = value;
+                        }
+                    }
+
+                }
+                this.restaurants.push(tempRestaurant);                    
+                tempRestaurant = null;
+                tempMax = 0;
+            }
+
+            console.log(this.restaurants);
+
+            return this.restaurants.reverse().pop();
 
         }
         else if (this.masterFilteredList.length == 0) {

@@ -1,31 +1,61 @@
-<ion-menu [content]="content" id="roulette-menu">
+<ion-menu [content]="content" id="roulette-menu" (ionClose)="getFilteredRestaurants()">
     <ion-header>
         <ion-toolbar color="primary">
-            <ion-title class="header">Preferences</ion-title>
-            <button class="menu-button" ion-item menuClose="roulette-menu">
-                <ion-icon name="menu"></ion-icon>
-            </button>
+            <ion-title class="title">Preferences</ion-title>
         </ion-toolbar>
     </ion-header>
 
     <ion-content>
-        <ion-list>
+        <ion-list class="checkbox">
             <ion-item>
-                <ion-checkbox [(ngModel)]="chinesePreference" (ionChange)="updatePreferences('chinesePreference', chinesePreference)"></ion-checkbox>
+                <ion-checkbox [(ngModel)]="chinesePreference" (ionChange)="updatePreferences('chinese-preference', chinesePreference)"></ion-checkbox>
                 <ion-label>Chinese</ion-label>
             </ion-item>
             <ion-item>
-                <ion-checkbox [(ngModel)]="mexicanPreference" (ionChange)="updatePreferences('mexicanPreference', mexicanPreference)"></ion-checkbox>
+                <ion-checkbox [(ngModel)]="mexicanPreference" (ionChange)="updatePreferences('mexican-preference', mexicanPreference)"></ion-checkbox>
                 <ion-label>Mexican</ion-label>
             </ion-item>
             <ion-item>
-                <ion-checkbox [(ngModel)]="italianPreference" (ionChange)="updatePreferences('italianPreference', italianPreference)"></ion-checkbox>
+                <ion-checkbox [(ngModel)]="italianPreference" (ionChange)="updatePreferences('italian-preference', italianPreference)"></ion-checkbox>
                 <ion-label>Italian</ion-label>
             </ion-item>
             <ion-item>
-                <ion-checkbox [(ngModel)]="americanPreference" (ionChange)="updatePreferences('americanPreference', americanPreference)"></ion-checkbox>
-                <ion-label>Amerzican</ion-label>
+                <ion-checkbox [(ngModel)]="americanPreference" (ionChange)="updatePreferences('american-preference', americanPreference)"></ion-checkbox>
+                <ion-label>American</ion-label>
             </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="lowCost" (ionChange)="updatePreferences('low-cost', lowCost)"></ion-checkbox>
+                    <ion-label>Low Cost</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="highCost" (ionChange)="updatePreferences('high-cost', highCost)"></ion-checkbox>
+                    <ion-label>High Cost</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="close" (ionChange)="updatePreferences('close', close)"></ion-checkbox>
+                    <ion-label>Close</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="far" (ionChange)="updatePreferences('far', far)"></ion-checkbox>
+                    <ion-label>Far</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="driveThrough" (ionChange)="updatePreferences('drive-through', driveThrough)"></ion-checkbox>
+                    <ion-label>Drive Through</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="sitDown" (ionChange)="updatePreferences('sit-down', sitDown)"></ion-checkbox>
+                    <ion-label>Sit Down</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="shortStay" (ionChange)="updatePreferences('short-stay', shortStay)"></ion-checkbox>
+                    <ion-label>Short Stay</ion-label>
+            </ion-item>
+            <ion-item>
+                    <ion-checkbox [(ngModel)]="toGo" (ionChange)="updatePreferences('to-go', toGo)"></ion-checkbox>
+                    <ion-label>To Go</ion-label>
+            </ion-item>
+
         </ion-list>
     </ion-content>
 

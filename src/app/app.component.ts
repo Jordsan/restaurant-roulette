@@ -23,6 +23,21 @@ export class MyApp {
   mexicanPreference: boolean = false;
   italianPreference: boolean = false;
   americanPreference: boolean = false;
+  lowCost: boolean = false;
+  highCost: boolean = false;
+  close: boolean = false;
+  far: boolean = false;
+  driveThrough: boolean = false;
+  sitDown: boolean = false;
+  shortStay: boolean = false;
+  toGo: boolean = false;
+
+  // TO DO: ------
+
+
+  // MAKE PREFERENCES MENU BE AUTO GENERATED FROM NGFORS, NOT MANUAL ENTRY?
+  // ----> MIGHT NOT BE NECESSARY BC NOT THAT MANY PREFERENCES?
+  //    -> if a lot of preferences make it a scroll down type menu?
 
   constructor(
     platform: Platform, 
@@ -43,5 +58,12 @@ export class MyApp {
     console.log(this.preferencesFilterService.getPreferencesList());
   }
   
+   getFilteredRestaurants(): void {
+    this.preferencesFilterService.filterRestaurants();
+
+    for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
+      console.log(restaurant.name);
+    } 
+  }
 }
 
