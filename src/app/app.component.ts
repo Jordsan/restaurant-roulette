@@ -32,18 +32,13 @@ export class MyApp {
   shortStay: boolean = false;
   toGo: boolean = false;
 
-  // TO DO: ------
-
-
-  // MAKE PREFERENCES MENU BE AUTO GENERATED FROM NGFORS, NOT MANUAL ENTRY?
-  // ----> MIGHT NOT BE NECESSARY BC NOT THAT MANY PREFERENCES?
-  //    -> if a lot of preferences make it a scroll down type menu?
 
   constructor(
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen, 
-    private preferencesFilterService: PreferencesFilterService
+    private preferencesFilterService: PreferencesFilterService,
+    private rouletteService: RouletteService
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -60,9 +55,10 @@ export class MyApp {
   
    getFilteredRestaurants(): void {
     this.preferencesFilterService.filterRestaurants();
+    this.rouletteService.recommendRestaurants();
 
     for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
-      console.log(restaurant.name);
+      console.log("Filtered Restaurant List: " + restaurant.name);
     } 
   }
 }

@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-
 import { Restaurant } from '../../components/restaurants/restaurant';
-import { RestaurantsService } from '../restaurants/restaurants.service';
 
 
 @Injectable()

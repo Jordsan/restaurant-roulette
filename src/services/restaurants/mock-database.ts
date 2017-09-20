@@ -1,6 +1,4 @@
 import { Restaurant } from '../../components/restaurants/restaurant'
-import { Injectable } from '@angular/core'; 
-
 
 export class MockDatabase {
     private list: Restaurant[]

@@ -34,6 +34,7 @@ export class RouletteService {
 
 
     // IF YOU DENY -> NEGATIVE PROBABILITY
+    //  LIKE BUTTON
 
 
     // NEED TO MAKE THE LIST JUST BE SET GLOBALLY AND THEN RUN THROUGH THE LIST ONE BY ONE POPPING
@@ -41,6 +42,21 @@ export class RouletteService {
     //   -> right now it will just keep re-appending the list of data so its not working properly yet
 
 
+
+    // add in preference for to allow for repeat locations? or only keep it to unique locations?
+
+
+    // need to bind list generation to menu close or preference change
+    // --> then only cycle through the list with the generate button, not regenerate the entirelist 
+
+
+    //instead of reversing after, make it reversed initially?? 
+    // --> PERFORMANCE
+
+
+    // "DO SOMETHING ABOUT THIS EVENTUALLY CONSOLE LOG"
+
+    
     logMapElements(value, key, map) {
         console.log(`MAP: [${key}] = ${value}`);
     }
@@ -49,23 +65,42 @@ export class RouletteService {
         console.log(`MAP: [${key.name}] = ${value}`);
     }
 
-
-
     chooseRestaurant(): Restaurant {
+        if (this.recentRestaurants.length > 0) {
+            if (this.restaurants.length == 0) {
+                this.recommendRestaurants();
+            }
+            return this.restaurants.pop();   
+        }
+        else if (this.masterFilteredList.length == 0) {
+            console.log("do something about this eventually");
+        }
+        else {
+            let randomIndex = Math.floor(Math.random() * (this.masterFilteredList.length));
+            console.log("Index: " + randomIndex);
+            console.log("Restaurant: \n  id: " + this.masterFilteredList[randomIndex].id
+                + "\n  name: " + this.masterFilteredList[randomIndex].name);
+            return this.masterFilteredList[randomIndex];
+        }
+    }
+
+    recommendRestaurants(): void {
         this.masterFilteredList = this.preferencesFilterService.getFilteredRestaurants();
         this.recentRestaurants = this.profileService.getRecentsList();
 
-        for (let restaurant of this.masterFilteredList) {
-            console.log("  - component master test: " + restaurant.name);
-        }
-        for (let restaurant of this.recentRestaurants) {
-            console.log("  - component recents test: " + restaurant.name);
-        }
-
         if (this.recentRestaurants.length > 0) {
+            this.restaurants = new Array();
+            for (let restaurant of this.masterFilteredList) {
+                console.log("  - component master test: " + restaurant.name);
+            }
+            for (let restaurant of this.recentRestaurants) {
+                console.log("  - component recents test: " + restaurant.name);
+            }
+    
+    
             let tagsMap: Map<string, number> = new Map<string, number>();
             let restaurantScoreMap: Map<Restaurant, number> = new Map<Restaurant, number>();
-
+    
             //create map of tags with # of occurences in recents
             for (let restaurant of this.recentRestaurants) {
                 for (let tag of restaurant.tags) {
@@ -77,39 +112,39 @@ export class RouletteService {
                     }
                 }
             }
-
+    
             tagsMap.forEach(this.logMapElements);
-
+    
             let topTags: Array<string> = new Array();
             let tempMax: number = 0;
             let tempKey: string;
-
-
+    
+    
             for (let i = 0; i < 10; i++) {
                 for (let entry of Array.from(tagsMap.entries())) {
                     let key = entry[0];
                     let value = entry[1];
-
+    
                     if (!(topTags.includes(key))) {
                         if (value > tempMax) {
                             tempKey = key;
                             tempMax = value;
                         }
                     }
-
+    
                 }
-                topTags.push(tempKey);                    
+                topTags.push(tempKey);
                 tempKey = "";
                 tempMax = 0;
             }
-
+    
             console.log(topTags);
-
-            for (let restaurant of this.masterFilteredList){
-                for (let tag of restaurant.tags){
-                    for (let topTag of topTags){
-                        if (tag == topTag){
-                            if (restaurantScoreMap.has(restaurant)){
+    
+            for (let restaurant of this.masterFilteredList) {
+                for (let tag of restaurant.tags) {
+                    for (let topTag of topTags) {
+                        if (tag == topTag) {
+                            if (restaurantScoreMap.has(restaurant)) {
                                 restaurantScoreMap.set(restaurant, restaurantScoreMap.get(restaurant) + 1)
                                 console.log("SETTING KEY: " + restaurant.name + " [" + restaurantScoreMap.get(restaurant) + "]");
                                 console.log("   tag-match: " + topTag)
@@ -123,46 +158,39 @@ export class RouletteService {
                     }
                 }
             }
-            
-
+    
+    
             restaurantScoreMap.forEach(this.logRestaurantScore);
-
+    
             tempMax = 0;
             let tempRestaurant: Restaurant;
-
+    
             for (let i = 0; i < restaurantScoreMap.size; i++) {
                 for (let entry of Array.from(restaurantScoreMap.entries())) {
                     let key = entry[0];
                     let value = entry[1];
-
+    
                     if (!(this.restaurants.includes(key))) {
                         if (value > tempMax) {
                             tempRestaurant = key;
                             tempMax = value;
                         }
                     }
-
+    
                 }
-                this.restaurants.push(tempRestaurant);                    
+                this.restaurants.push(tempRestaurant);
                 tempRestaurant = null;
                 tempMax = 0;
             }
-
+    
+            this.restaurants.reverse();
             console.log(this.restaurants);
-
-            return this.restaurants.reverse().pop();
-
-        }
-        else if (this.masterFilteredList.length == 0) {
-            console.log("do something about this eventually");
+            
         }
         else {
-            let randomIndex = Math.floor(Math.random() * (this.masterFilteredList.length));
-            console.log("Index: " + randomIndex);
-            console.log("Restaurant: \n  id: " + this.masterFilteredList[randomIndex].id
-                + "\n  name: " + this.masterFilteredList[randomIndex].name);
-            return this.masterFilteredList[randomIndex];
+            console.log("No Recents");
         }
+        
     }
 
 }

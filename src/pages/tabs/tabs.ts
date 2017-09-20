@@ -20,23 +20,8 @@ export class TabsPage {
 
   mySelectedIndex: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private restaurantsService: RestaurantsService,
-    private preferencesFilterService: PreferencesFilterService,
-    private profileService: ProfileService){
+  constructor(public navCtrl: NavController, public navParams: NavParams){
       this.mySelectedIndex = navParams.data.tabIndex || 0;
     };
-
-
-
-  // need to figure out how to bind this to the side menu somehow
- 
-
-  test():void {
-    for (let restaurant of this.profileService.getRecentsList()) {
-      console.log(restaurant.name);
-    }
-  }
-
 
 }
