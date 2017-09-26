@@ -55,7 +55,6 @@ export class MyApp {
   
    getFilteredRestaurants(): void {
     this.preferencesFilterService.filterRestaurants();
-    this.rouletteService.recommendRestaurants();
 
     for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
       console.log("Filtered Restaurant List: " + restaurant.name);

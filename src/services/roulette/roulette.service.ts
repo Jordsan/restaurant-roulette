@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+
 import { Restaurant } from '../../components/restaurants/restaurant';
 
 import { ProfileService } from '../profile/profile.service'
@@ -12,6 +14,9 @@ export class RouletteService {
     private masterFilteredList: Restaurant[];
     private restaurants: Restaurant[];
 
+    private recommendedRestaurantsSubject = new Subject<Restaurant[]>();
+    public recommendedRestaurantsStream$ = this.recommendedRestaurantsSubject.asObservable();
+
     constructor(
         private preferencesFilterService: PreferencesFilterService,
         private profileService: ProfileService
@@ -23,10 +28,6 @@ export class RouletteService {
 
 
 
-    // differentiate parts of chooseRestaurant() into own methods?
-
-    // set master and recent lists outside of chooseRestaurant function?
-
     // maybe do the scoring in an order like this or something:
     //   - first pass through = set scores based on just preferences
     //   - second pass through add to scores based on recent restaurants' tags
@@ -37,26 +38,21 @@ export class RouletteService {
     //  LIKE BUTTON
 
 
-    // NEED TO MAKE THE LIST JUST BE SET GLOBALLY AND THEN RUN THROUGH THE LIST ONE BY ONE POPPING
-    // OFF THE NEXT ELEMENT
-    //   -> right now it will just keep re-appending the list of data so its not working properly yet
-
-
-
     // add in preference for to allow for repeat locations? or only keep it to unique locations?
 
-
-    // need to bind list generation to menu close or preference change
-    // --> then only cycle through the list with the generate button, not regenerate the entirelist 
-
-
-    //instead of reversing after, make it reversed initially?? 
+    //instead of reversing after, make it reversed initially in the original for loops
     // --> PERFORMANCE
 
 
-    // "DO SOMETHING ABOUT THIS EVENTUALLY CONSOLE LOG"
+    // RIGHT NOW WHEN YOU REACH THE END OF THE LIST IT REGENERATES SAME LIST
 
-    
+    // make it regenerate list on every first "play"
+    //  - right now regenerates list when every the menu is closed / list runs out of next restaurants
+    //  --> doesn't regenerate list when you are cycling through list
+    //  --> regenerate list if you select a restaurant?
+    //      --> maybe not because could be bad for performance?
+
+
     logMapElements(value, key, map) {
         console.log(`MAP: [${key}] = ${value}`);
     }
@@ -65,132 +61,113 @@ export class RouletteService {
         console.log(`MAP: [${key.name}] = ${value}`);
     }
 
-    chooseRestaurant(): Restaurant {
-        if (this.recentRestaurants.length > 0) {
-            if (this.restaurants.length == 0) {
-                this.recommendRestaurants();
-            }
-            return this.restaurants.pop();   
-        }
-        else if (this.masterFilteredList.length == 0) {
-            console.log("do something about this eventually");
-        }
-        else {
-            let randomIndex = Math.floor(Math.random() * (this.masterFilteredList.length));
-            console.log("Index: " + randomIndex);
-            console.log("Restaurant: \n  id: " + this.masterFilteredList[randomIndex].id
-                + "\n  name: " + this.masterFilteredList[randomIndex].name);
-            return this.masterFilteredList[randomIndex];
-        }
+    broadcastListChange(list: Restaurant[]): void {
+        this.recommendedRestaurantsSubject.next(list);
     }
 
-    recommendRestaurants(): void {
+    chooseRestaurants(): void {
         this.masterFilteredList = this.preferencesFilterService.getFilteredRestaurants();
         this.recentRestaurants = this.profileService.getRecentsList();
 
         if (this.recentRestaurants.length > 0) {
-            this.restaurants = new Array();
-            for (let restaurant of this.masterFilteredList) {
-                console.log("  - component master test: " + restaurant.name);
-            }
-            for (let restaurant of this.recentRestaurants) {
-                console.log("  - component recents test: " + restaurant.name);
-            }
-    
-    
-            let tagsMap: Map<string, number> = new Map<string, number>();
-            let restaurantScoreMap: Map<Restaurant, number> = new Map<Restaurant, number>();
-    
-            //create map of tags with # of occurences in recents
-            for (let restaurant of this.recentRestaurants) {
-                for (let tag of restaurant.tags) {
-                    if (tagsMap.has(tag)) {
-                        tagsMap.set(tag, tagsMap.get(tag) + 1);
-                    }
-                    else {
-                        tagsMap.set(tag, 1);
-                    }
-                }
-            }
-    
-            tagsMap.forEach(this.logMapElements);
-    
-            let topTags: Array<string> = new Array();
-            let tempMax: number = 0;
-            let tempKey: string;
-    
-    
-            for (let i = 0; i < 10; i++) {
-                for (let entry of Array.from(tagsMap.entries())) {
-                    let key = entry[0];
-                    let value = entry[1];
-    
-                    if (!(topTags.includes(key))) {
-                        if (value > tempMax) {
-                            tempKey = key;
-                            tempMax = value;
-                        }
-                    }
-    
-                }
-                topTags.push(tempKey);
-                tempKey = "";
-                tempMax = 0;
-            }
-    
-            console.log(topTags);
-    
-            for (let restaurant of this.masterFilteredList) {
-                for (let tag of restaurant.tags) {
-                    for (let topTag of topTags) {
-                        if (tag == topTag) {
-                            if (restaurantScoreMap.has(restaurant)) {
-                                restaurantScoreMap.set(restaurant, restaurantScoreMap.get(restaurant) + 1)
-                                console.log("SETTING KEY: " + restaurant.name + " [" + restaurantScoreMap.get(restaurant) + "]");
-                                console.log("   tag-match: " + topTag)
-                            }
-                            else {
-                                restaurantScoreMap.set(restaurant, 1);
-                                console.log("CREATING KEY: " + restaurant.name + " [1]");
-                                console.log("   tag-match: " + topTag)
-                            }
-                        }
-                    }
-                }
-            }
-    
-    
-            restaurantScoreMap.forEach(this.logRestaurantScore);
-    
-            tempMax = 0;
-            let tempRestaurant: Restaurant;
-    
-            for (let i = 0; i < restaurantScoreMap.size; i++) {
-                for (let entry of Array.from(restaurantScoreMap.entries())) {
-                    let key = entry[0];
-                    let value = entry[1];
-    
-                    if (!(this.restaurants.includes(key))) {
-                        if (value > tempMax) {
-                            tempRestaurant = key;
-                            tempMax = value;
-                        }
-                    }
-    
-                }
-                this.restaurants.push(tempRestaurant);
-                tempRestaurant = null;
-                tempMax = 0;
-            }
-    
-            this.restaurants.reverse();
-            console.log(this.restaurants);
-            
+                this.recommendRestaurants();
         }
         else {
-            console.log("No Recents");
+            this.broadcastListChange(this.masterFilteredList);
         }
-        
+    }
+
+    recommendRestaurants(): void {
+        this.restaurants = new Array();
+        for (let restaurant of this.masterFilteredList) {
+            console.log("  - component master test: " + restaurant.name);
+        }
+        for (let restaurant of this.recentRestaurants) {
+            console.log("  - component recents test: " + restaurant.name);
+        }
+        let tagsMap: Map<string, number> = new Map<string, number>();
+        let restaurantScoreMap: Map<Restaurant, number> = new Map<Restaurant, number>();
+
+        //create map of tags with # of occurences in recents
+        for (let restaurant of this.recentRestaurants) {
+            for (let tag of restaurant.tags) {
+                if (tagsMap.has(tag)) {
+                    tagsMap.set(tag, tagsMap.get(tag) + 1);
+                }
+                else {
+                    tagsMap.set(tag, 1);
+                }
+            }
+        }
+        tagsMap.forEach(this.logMapElements);
+
+        let topTags: Array<string> = new Array();
+        let tempMax: number = 0;
+        let tempKey: string;
+
+        for (let i = 0; i < 10; i++) {
+            for (let entry of Array.from(tagsMap.entries())) {
+                let key = entry[0];
+                let value = entry[1];
+
+                if (!(topTags.includes(key))) {
+                    if (value > tempMax) {
+                        tempKey = key;
+                        tempMax = value;
+                    }
+                }
+            }
+            topTags.push(tempKey);
+            tempKey = "";
+            tempMax = 0;
+        }
+        console.log(topTags);
+
+        for (let restaurant of this.masterFilteredList) {
+            for (let tag of restaurant.tags) {
+                for (let topTag of topTags) {
+                    if (tag == topTag) {
+                        if (restaurantScoreMap.has(restaurant)) {
+                            restaurantScoreMap.set(restaurant, restaurantScoreMap.get(restaurant) + 1)
+                            console.log("SETTING KEY: " + restaurant.name + " [" + restaurantScoreMap.get(restaurant) + "]");
+                            console.log("   tag-match: " + topTag)
+                        }
+                        else {
+                            restaurantScoreMap.set(restaurant, 1);
+                            console.log("CREATING KEY: " + restaurant.name + " [1]");
+                            console.log("   tag-match: " + topTag)
+                        }
+                    }
+                }
+            }
+        }
+
+        restaurantScoreMap.forEach(this.logRestaurantScore);
+
+        tempMax = 0;
+        let tempRestaurant: Restaurant;
+
+        for (let i = 0; i < restaurantScoreMap.size; i++) {
+            for (let entry of Array.from(restaurantScoreMap.entries())) {
+                let key = entry[0];
+                let value = entry[1];
+
+                if (!(this.restaurants.includes(key))) {
+                    if (value > tempMax) {
+                        tempRestaurant = key;
+                        tempMax = value;
+                    }
+                }
+            }
+            this.restaurants.push(tempRestaurant);
+            tempRestaurant = null;
+            tempMax = 0;
+        }
+
+        this.restaurants.reverse();
+        console.log(this.restaurants);
+
+        this.broadcastListChange(this.restaurants);
     }
 
 }

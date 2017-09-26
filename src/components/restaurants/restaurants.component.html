@@ -1,12 +1,17 @@
-<button (click)="test()">test 2</button>
-<div *ngFor="let restaurant of restaurants">
-  <h3>{{ restaurant.name }}</h3>
-  <div >
-    id: {{ restaurant.id }}
-    <div>
-      <button ion-button (click)="selectRestaurant(restaurant)">
-      Select
-    </button>
-    </div>
-  </div>
+<div>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let restaurant of restaurants">
+        <h3>{{ restaurant.name }}</h3>
+        <div>
+          id: {{ restaurant.id }}
+          <div>
+            <button ion-button (click)="selectRestaurant(restaurant)">
+            Select
+            </button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>

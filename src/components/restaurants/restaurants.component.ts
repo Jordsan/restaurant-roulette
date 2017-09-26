@@ -16,7 +16,7 @@ export class RestaurantsComponent implements OnInit {
   constructor(
     private preferencesFilterService: PreferencesFilterService,
     private profileService: ProfileService
-  ) { 
+  ) {
   }
 
   ngOnInit(): void {

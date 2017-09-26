@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Slides } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { RouletteService } from '../../services/roulette/roulette.service';
 import { ProfileService } from '../../services/profile/profile.service';
@@ -9,22 +10,30 @@ import { ProfileService } from '../../services/profile/profile.service';
   selector: 'roulette',
   templateUrl: 'roulette.component.html'
 })
-export class RouletteComponent {
+export class RouletteComponent implements OnInit{
 
+  @ViewChild(Slides) slides: Slides;
+  
   displayedRestaurant: Restaurant;
+  recommendedRestaurants: Restaurant[];
 
   constructor(private rouletteService: RouletteService,
-              private profileService: ProfileService) {
-    
+              private profileService: ProfileService) {    
   }
 
-
-  setDisplayedRestaurant(restaurant: Restaurant): void {
-    this.displayedRestaurant = restaurant;
+  ngOnInit(): void {
+    this.rouletteService.recommendedRestaurantsStream$
+      .subscribe(list => {
+        this.recommendedRestaurants = list;
+    });
+    //this.slides.freeMode = true;
+    this.slides.autoHeight = true;
   }
 
   generateRestaurant(): void {
-    this.setDisplayedRestaurant(this.rouletteService.chooseRestaurant());
+    this.rouletteService.chooseRestaurants();
+    console.log("Recommended Restaurants: " );
+    console.log(this.recommendedRestaurants);
   }
 
   selectDisplayedRestaurant(restaurant: Restaurant): void {
@@ -32,4 +41,11 @@ export class RouletteComponent {
     this.profileService.addRestaurant(restaurant);
   }
 
+  swipeNext(): void {
+    console.log("Next");
+  }
+
+  swipePrev(): void {
+    console.log("Prev");
+  }
 }
