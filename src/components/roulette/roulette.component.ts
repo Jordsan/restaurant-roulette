@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
 import { Slides } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { RouletteService } from '../../services/roulette/roulette.service';
@@ -8,7 +8,7 @@ import { ProfileService } from '../../services/profile/profile.service';
 
 @Component({
   selector: 'roulette',
-  templateUrl: 'roulette.component.html'
+  templateUrl: 'roulette.component.html',
 })
 export class RouletteComponent implements OnInit{
 
@@ -27,7 +27,9 @@ export class RouletteComponent implements OnInit{
         this.recommendedRestaurants = list;
     });
     //this.slides.freeMode = true;
-    this.slides.autoHeight = true;
+    //this.slides.autoHeight = true;
+    //this.slides._wrapper = 
+
   }
 
   generateRestaurant(): void {
@@ -36,10 +38,6 @@ export class RouletteComponent implements OnInit{
     console.log(this.recommendedRestaurants);
   }
 
-  selectDisplayedRestaurant(restaurant: Restaurant): void {
-    console.log("ADDING: " + restaurant.name);
-    this.profileService.addRestaurant(restaurant);
-  }
 
   swipeNext(): void {
     console.log("Next");

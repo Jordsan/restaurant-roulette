@@ -12,6 +12,8 @@ import { ProfilePage } from '../pages/profile/profile'
 
 import { RestaurantsComponent } from '../components/restaurants/restaurants.component';
 import { RouletteComponent } from '../components/roulette/roulette.component';
+import { RestaurantDetailComponent } from '../components/restaurant-detail/restaurant-detail.component';
+import { CuisinesComponent } from '../components/cuisines/cuisines.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { RouletteComponent } from '../components/roulette/roulette.component';
     ProfilePage,
     TabsPage,
     RestaurantsComponent,
-    RouletteComponent
+    RouletteComponent,
+    RestaurantDetailComponent,
+    CuisinesComponent
   ],
   imports: [
     BrowserModule,

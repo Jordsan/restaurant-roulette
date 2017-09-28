@@ -1,31 +1,10 @@
-<div>
-  <button (click)="generateRestaurant()">Generate Restaurant</button>
-  <p>Test</p>
-  <ion-slides (ionSlideNextEnd)="swipeNext()" (ionSlidePrevEnd)="swipePrev()">
-    <ion-slide *ngFor="let restaurant of recommendedRestaurants">
-      <h3>{{ restaurant.name }}</h3>
-      <div>
-        id: {{ restaurant.id }}
-        <div>
-          <button ion-button (click)="selectDisplayedRestaurant(restaurant)">Select</button>
-        </div>
-      </div>
-    </ion-slide>
-  </ion-slides>
-  <p>Test</p>  
-
-  <!--
-  <div *ngIf="displayedRestaurant">
-    <h3>{{ displayedRestaurant.name }}</h3>
-    <div>
-      id: {{ displayedRestaurant.id }}
-      <div>
-        <button ion-button (click)="selectDisplayedRestaurant(displayedRestaurant)">
-        Select
-        </button>
-      </div>
-    </div>
-  </div>
-  -->
-</div>
-
+<ion-content >
+  <div id="slides-wrapper">
+    <ion-slides (ionSlideNextEnd)="swipeNext()" (ionSlidePrevEnd)="swipePrev()">
+      <ion-slide  class="restaurant-slides" *ngFor="let restaurant of recommendedRestaurants">
+        <restaurant-detail [restaurant]="restaurant"></restaurant-detail>
+      </ion-slide>
+    </ion-slides>
+  </div> 
+  <button id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>
+</ion-content>

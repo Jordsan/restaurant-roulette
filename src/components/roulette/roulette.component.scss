@@ -1,3 +1,23 @@
-roulette {
+$background : #DBC996;
 
+.restaurant-slides {
+
+    height: 75vh;
+    border-color: #000000;
+    border-style: solid;
+    background-color: $background;
 }
+
+.bottom {
+    margin: auto;
+    display: block;
+    position: relative;
+
+  }
+
+  #play-button {
+    width: 20vw;
+    height: 5vh;
+  }
+
+  
