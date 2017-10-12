@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core'; 
+import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { Subject } from 'rxjs/Subject';
 
 
@@ -8,53 +9,46 @@ import { RestaurantsService } from '../restaurants/restaurants.service'
 
 @Injectable()
 export class PreferencesFilterService {
-    
+
     private filteredRestaurantsSubject = new Subject<Restaurant[]>();
-    public filteredRestaurantsStream$ = this.filteredRestaurantsSubject.asObservable(); 
+    public filteredRestaurantsStream$ = this.filteredRestaurantsSubject.asObservable();
 
     private filteredRestaurants: Restaurant[];
     private preferencesList: string[];
 
-    constructor(private restaurantsService: RestaurantsService){
+    constructor(private events: Events, private restaurantsService: RestaurantsService) {
         this.preferencesList = new Array();
         this.filteredRestaurants = new Array();
+
+        events.subscribe('cuisine-update', (list) => {
+            this.preferencesList = list;
+        })
     }
 
-    broadcastListChange(list: Restaurant[]): void{
+    broadcastListChange(list: Restaurant[]): void {
         this.filteredRestaurantsSubject.next(list);
     }
 
     filterRestaurants(): void {
-        let tempList = this.restaurantsService.getAllRestaurants().filter((restaurant: Restaurant) =>{
-            for(let tag of restaurant.tags){
-                if (this.preferencesList.includes(tag)){
+        let tempList = this.restaurantsService.getAllRestaurants().filter((restaurant: Restaurant) => {
+            for (let tag of restaurant.tags) {
+                if (this.preferencesList.includes(tag)) {
                     return true;
                 }
             }
             return false;
-        }); 
-        this.filteredRestaurants =  tempList;
-        this.broadcastListChange(tempList);
-    }
-
-   
-
-    updatePreferences(preference: string, action: boolean): void {
-        if (action){
-            this.preferencesList.push(preference);
+        });
+        this.filteredRestaurants = tempList;
+        if (tempList.length > 0) {
+            this.broadcastListChange(tempList);
         }
         else {
-            this.preferencesList.splice(this.preferencesList.indexOf(preference), 1)
+            this.filteredRestaurants = this.restaurantsService.getAllRestaurants();
+            this.broadcastListChange(this.restaurantsService.getAllRestaurants());
+            console.log("hit");
+            console.log(this.restaurantsService.getAllRestaurants());
         }
-    }
 
-    addPreference(input: string): void {
-        this.preferencesList.push(input);
-    }
-
-    
-    getPreferencesList(): string[] {
-        return this.preferencesList;
     }
 
     getFilteredRestaurants(): Restaurant[] {

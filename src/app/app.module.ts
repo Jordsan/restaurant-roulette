@@ -6,42 +6,50 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
-import { TabsPage } from '../pages/tabs/tabs'
+import { TabsPage } from '../pages/tabs/tabs';
 import { RoulettePage } from '../pages/roulette/roulette';
-import { ProfilePage } from '../pages/profile/profile'
+import { ProfilePage } from '../pages/profile/profile';
+
+import { PreferencesFilterService } from '../services/preferences-filter/preferences-filter.service';
+import { RestaurantsService } from '../services/restaurants/restaurants.service';
 
 import { RestaurantsComponent } from '../components/restaurants/restaurants.component';
 import { RouletteComponent } from '../components/roulette/roulette.component';
 import { RestaurantDetailComponent } from '../components/restaurant-detail/restaurant-detail.component';
-import { CuisinesComponent } from '../components/cuisines/cuisines.component';
+import { PreferencesComponent } from '../components/preferences/preferences.component';
+import { CuisinesComponent } from '../components/menu-content/cuisines.component';
 
 
 @NgModule({
-  declarations: [
-    MyApp,
-    RoulettePage,
-    ProfilePage,
-    TabsPage,
-    RestaurantsComponent,
-    RouletteComponent,
-    RestaurantDetailComponent,
-    CuisinesComponent
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    TabsPage,
-    RoulettePage,
-    ProfilePage
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-  ]
+    declarations: [
+        MyApp,
+        RoulettePage,
+        ProfilePage,
+        TabsPage,
+        RestaurantsComponent,
+        RouletteComponent,
+        RestaurantDetailComponent,
+        PreferencesComponent,
+        CuisinesComponent
+    ],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(MyApp)
+    ],
+    bootstrap: [IonicApp],
+    entryComponents: [
+        MyApp,
+        TabsPage,
+        RoulettePage,
+        ProfilePage,
+        CuisinesComponent
+    ],
+    providers: [
+        StatusBar,
+        SplashScreen,
+        PreferencesFilterService,
+        RestaurantsService,
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -5,31 +5,31 @@ import { ProfileService } from '../../services/profile/profile.service';
 
 
 @Component({
-  selector: 'restaurant-detail',
-  templateUrl: 'restaurant-detail.component.html'
+    selector: 'restaurant-detail',
+    templateUrl: 'restaurant-detail.component.html'
 })
 export class RestaurantDetailComponent {
 
-  @Input()
-  private restaurant: Restaurant;
+    @Input()
+    private restaurant: Restaurant;
 
-  constructor(private profileService: ProfileService) {
-    
-  }
+    constructor(private profileService: ProfileService) {
 
-  getMoreDetail(): void {
+    }
 
-  }
+    getMoreDetail(): void {
 
-  getPrev(): void {
+    }
 
-  }
+    getPrev(): void {
 
-  select(): void {
-    this.profileService.addRestaurant(this.restaurant);
-  }
+    }
 
-  getNext(): void {
+    select(): void {
+        this.profileService.addRestaurant(this.restaurant);
+    }
 
-  }
+    getNext(): void {
+
+    }
 }

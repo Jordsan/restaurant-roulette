@@ -7,43 +7,46 @@ import { ProfileService } from '../../services/profile/profile.service';
 
 
 @Component({
-  selector: 'roulette',
-  templateUrl: 'roulette.component.html',
+    selector: 'roulette',
+    templateUrl: 'roulette.component.html',
 })
-export class RouletteComponent implements OnInit{
+export class RouletteComponent implements OnInit {
 
-  @ViewChild(Slides) slides: Slides;
-  
-  displayedRestaurant: Restaurant;
-  recommendedRestaurants: Restaurant[];
+    @ViewChild(Slides) slides: Slides;
 
-  constructor(private rouletteService: RouletteService,
-              private profileService: ProfileService) {    
-  }
+    displayedRestaurant: Restaurant;
+    recommendedRestaurants: Restaurant[];
 
-  ngOnInit(): void {
-    this.rouletteService.recommendedRestaurantsStream$
-      .subscribe(list => {
-        this.recommendedRestaurants = list;
-    });
-    //this.slides.freeMode = true;
-    //this.slides.autoHeight = true;
-    //this.slides._wrapper = 
+    constructor(private rouletteService: RouletteService,
+        private profileService: ProfileService) {
+    }
 
-  }
+    ngOnInit(): void {
+        this.rouletteService.recommendedRestaurantsStream$
+            .subscribe(list => {
+                this.recommendedRestaurants = list;
+            });
+        //this.slides.freeMode = true;
+        //this.slides.autoHeight = true;
+        //this.slides._wrapper = 
 
-  generateRestaurant(): void {
-    this.rouletteService.chooseRestaurants();
-    console.log("Recommended Restaurants: " );
-    console.log(this.recommendedRestaurants);
-  }
+    }
+
+    generateRestaurant(): void {
+        this.rouletteService.chooseRestaurants();
+
+        this.slides.slideTo(0);
+
+        console.log("Recommended Restaurants: ");
+        console.log(this.recommendedRestaurants);
+    }
 
 
-  swipeNext(): void {
-    console.log("Next");
-  }
+    swipeNext(): void {
+        console.log("Next");
+    }
 
-  swipePrev(): void {
-    console.log("Prev");
-  }
+    swipePrev(): void {
+        console.log("Prev");
+    }
 }

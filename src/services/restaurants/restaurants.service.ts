@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'; 
+import { Injectable } from '@angular/core';
 
 import { Restaurant } from '../../components/restaurants/restaurant'
 import { MockDatabase } from './mock-database'
@@ -9,8 +9,8 @@ export class RestaurantsService {
     private db: MockDatabase;
 
     private restaurants: Restaurant[];
-    
-    constructor(){
+
+    constructor() {
         this.db = new MockDatabase();
         this.restaurants = new Array();
 
@@ -25,5 +25,5 @@ export class RestaurantsService {
         this.restaurants = list;
     }
 
-    
+
 }

@@ -70,7 +70,7 @@ export class RouletteService {
         this.recentRestaurants = this.profileService.getRecentsList();
 
         if (this.recentRestaurants.length > 0) {
-                this.recommendRestaurants();
+            this.recommendRestaurants();
         }
         else {
             this.broadcastListChange(this.masterFilteredList);

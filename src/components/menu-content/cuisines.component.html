@@ -1,0 +1,4 @@
+<ion-item *ngFor="let cuisine of cuisineList">
+    <ion-label>{{ cuisine.cuisine }}</ion-label>
+    <ion-checkbox [checked]='cuisine.active' [(ngModel)]='cuisine.active' (ionChange)='updatePreferences(cuisine.cuisine, cuisine.active)'></ion-checkbox>
+</ion-item>

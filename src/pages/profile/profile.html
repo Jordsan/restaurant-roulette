@@ -1,16 +1,16 @@
 <ion-header>
     <ion-navbar no-border-bottom>
-      <button ion-button menuToggle>
+        <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-navbar>
-  </ion-header>
+</ion-header>
 
 <ion-content padding>
-  <div *ngFor="let restaurant of recentRestaurants">
-    <h3>{{ restaurant.name }}</h3>
-    <div>
-      id: {{ restaurant.id }}
+    <div *ngFor="let restaurant of recentRestaurants">
+        <h3>{{ restaurant.name }}</h3>
+        <div>
+            id: {{ restaurant.id }}
+        </div>
     </div>
-  </div>
-</ion-content> 
+</ion-content>

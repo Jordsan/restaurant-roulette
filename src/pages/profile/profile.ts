@@ -6,26 +6,25 @@ import { ProfileService } from '../../services/profile/profile.service';
 
 
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html',
+    selector: 'page-profile',
+    templateUrl: 'profile.html',
 })
 export class ProfilePage {
 
-  private recentRestaurants: Restaurant[];
+    private recentRestaurants: Restaurant[];
 
-  constructor(
-    private navCtrl: NavController, 
-    private navParams: NavParams,
-    private profileService: ProfileService) 
-    {
-      this.recentRestaurants = this.profileService.getRecentsList();
-  }
+    constructor(
+        private navCtrl: NavController,
+        private navParams: NavParams,
+        private profileService: ProfileService) {
+        this.recentRestaurants = this.profileService.getRecentsList();
+    }
 
-  ionViewDidLoad(): void {
-    this.profileService.recentRestaurantsStream$
-      .subscribe(list => {
-        this.recentRestaurants = list;
-      });
-  }
+    ionViewDidLoad(): void {
+        this.profileService.recentRestaurantsStream$
+            .subscribe(list => {
+                this.recentRestaurants = list;
+            });
+    }
 
 }

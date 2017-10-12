@@ -19,7 +19,7 @@ export class ProfileService {
         this.recentRestaurantsSubject.next(list);
     }
 
-    addRestaurant(restaurant: Restaurant): void{
+    addRestaurant(restaurant: Restaurant): void {
         this.recentRestaurants.push(restaurant);
         this.broadcastListChange(this.recentRestaurants);
     }

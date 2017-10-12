@@ -10,18 +10,18 @@ import { PreferencesFilterService } from '../../services/preferences-filter/pref
 import { ProfileService } from '../../services/profile/profile.service';
 
 @Component({
-  selector: 'page-tabs',
-  templateUrl: 'tabs.html',
+    selector: 'page-tabs',
+    templateUrl: 'tabs.html',
 })
 export class TabsPage {
 
-  roulettePage: any = RoulettePage;
-  profilePage: any = ProfilePage;
+    roulettePage: any = RoulettePage;
+    profilePage: any = ProfilePage;
 
-  mySelectedIndex: number;
+    mySelectedIndex: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams){
-      this.mySelectedIndex = navParams.data.tabIndex || 0;
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+        this.mySelectedIndex = navParams.data.tabIndex || 0;
     };
 
 }

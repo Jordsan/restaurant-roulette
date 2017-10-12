@@ -1,7 +1,0 @@
-<!-- Generated template for the CuisinesComponent component -->
-<div>
-  <ion-item *ngFor="let cuisine of cuisineList">
-    <ion-label>{{ cuisine.cuisine }}</ion-label>
-    <ion-checkbox [(ngModel)]='cuisine.active' (ionChange)='updatePreferences(cuisine.cuisine, cuisine.active)'></ion-checkbox>
-  </ion-item>
-</div>

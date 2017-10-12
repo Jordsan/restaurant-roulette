@@ -1,50 +1,50 @@
 <ion-grid>
-  <ion-row>
-    <ion-col col-10>
-      <h3>{{ restaurant.name }}</h3>
-    </ion-col>
-    <ion-col col-2>
-      <button ion-button (click)="getMoreDetail()">
+    <ion-row>
+        <ion-col col-10>
+            <h3>{{ restaurant.name }}</h3>
+        </ion-col>
+        <ion-col col-2>
+            <button ion-button (click)="getMoreDetail()">
           <ion-icon name="more"></ion-icon>
       </button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      Overview <br>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-       Distance
-    </ion-col>
-    <ion-col>
-        Price
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      Details
-    </ion-col>
-    <ion-col>
-      Details
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <button ion-button (click)="getPrev()">
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            Overview <br>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            Distance
+        </ion-col>
+        <ion-col>
+            Price
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            Details
+        </ion-col>
+        <ion-col>
+            Details
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <button ion-button (click)="getPrev()">
         <ion-icon name="arrow-dropleft"></ion-icon>
       </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button (click)="select()">
+        </ion-col>
+        <ion-col>
+            <button ion-button (click)="select()">
         <ion-icon name="checkmark-circle-outline"></ion-icon>
       </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button (click)="getNext()">
+        </ion-col>
+        <ion-col>
+            <button ion-button (click)="getNext()">
           <ion-icon name="arrow-dropright"></ion-icon>
       </button>
-    </ion-col>
-  </ion-row>
+        </ion-col>
+    </ion-row>
 </ion-grid>

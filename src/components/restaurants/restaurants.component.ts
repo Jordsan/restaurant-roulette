@@ -6,35 +6,35 @@ import { PreferencesFilterService } from '../../services/preferences-filter/pref
 import { ProfileService } from '../../services/profile/profile.service';
 
 @Component({
-  selector: 'restaurants',
-  templateUrl: 'restaurants.component.html',
+    selector: 'restaurants',
+    templateUrl: 'restaurants.component.html',
 })
 export class RestaurantsComponent implements OnInit {
 
-  private restaurants: Restaurant[];
+    private restaurants: Restaurant[];
 
-  constructor(
-    private preferencesFilterService: PreferencesFilterService,
-    private profileService: ProfileService
-  ) {
-  }
-
-  ngOnInit(): void {
-    this.preferencesFilterService.filteredRestaurantsStream$
-      .subscribe(list => {
-        this.restaurants = list;
-      });
-  }
-
-  test() {
-    for (let restaurant of this.restaurants) {
-      console.log("rest test: " + restaurant.name);
+    constructor(
+        private preferencesFilterService: PreferencesFilterService,
+        private profileService: ProfileService
+    ) {
     }
-  }
 
-  selectRestaurant(restaurant: Restaurant): void {
-    console.log("ADDING: " + restaurant.name);
-    this.profileService.addRestaurant(restaurant);
-  }
+    ngOnInit(): void {
+        this.preferencesFilterService.filteredRestaurantsStream$
+            .subscribe(list => {
+                this.restaurants = list;
+            });
+    }
+
+    test() {
+        for (let restaurant of this.restaurants) {
+            console.log("rest test: " + restaurant.name);
+        }
+    }
+
+    selectRestaurant(restaurant: Restaurant): void {
+        console.log("ADDING: " + restaurant.name);
+        this.profileService.addRestaurant(restaurant);
+    }
 
 }

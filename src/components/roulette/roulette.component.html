@@ -1,10 +1,10 @@
-<ion-content >
-  <div id="slides-wrapper">
-    <ion-slides (ionSlideNextEnd)="swipeNext()" (ionSlidePrevEnd)="swipePrev()">
-      <ion-slide  class="restaurant-slides" *ngFor="let restaurant of recommendedRestaurants">
-        <restaurant-detail [restaurant]="restaurant"></restaurant-detail>
-      </ion-slide>
-    </ion-slides>
-  </div> 
-  <button id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>
+<ion-content>
+    <div id="slides-wrapper">
+        <ion-slides (ionSlideNextEnd)="swipeNext()" (ionSlidePrevEnd)="swipePrev()">
+            <ion-slide class="restaurant-slides" *ngFor="let restaurant of recommendedRestaurants">
+                <restaurant-detail [restaurant]="restaurant"></restaurant-detail>
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <button id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>
 </ion-content>
