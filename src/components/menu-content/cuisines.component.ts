@@ -33,11 +33,12 @@ export class CuisinesComponent {
         this.cuisineList.push(new Pair("Chinese", false));
         this.cuisineList.push(new Pair("French", false));
         this.cuisineList.push(new Pair("Greek", false));
-        this.cuisineList.push(new Pair("Mexican", false));
-        this.cuisineList.push(new Pair("Italian", false));
         this.cuisineList.push(new Pair("Indian", false));
+        this.cuisineList.push(new Pair("Italian", false));
         this.cuisineList.push(new Pair("Japanese", false));
+        this.cuisineList.push(new Pair("Korean", false));
         this.cuisineList.push(new Pair("Mediterranean", false));
+        this.cuisineList.push(new Pair("Mexican", false));
         this.cuisineList.push(new Pair("Vietnamese", false));
 
         for (let i = 0; i < this.cuisineList.length; i++) {
@@ -49,7 +50,7 @@ export class CuisinesComponent {
         }
     }
 
-    updatePreferences(preference: string, action: boolean): void {
+    updateCuisines(preference: string, action: boolean): void {
         if (action) {
             this.preferencesList.push(preference);
         }

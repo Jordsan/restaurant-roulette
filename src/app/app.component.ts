@@ -20,23 +20,6 @@ import { RouletteService } from '../services/roulette/roulette.service';
 export class MyApp {
     rootPage: any = TabsPage;
 
-    chinesePreference: boolean = false;
-    mexicanPreference: boolean = false;
-    italianPreference: boolean = false;
-    americanPreference: boolean = false;
-    lowCost: boolean = false;
-    highCost: boolean = false;
-    close: boolean = false;
-    far: boolean = false;
-    driveThrough: boolean = false;
-    sitDown: boolean = false;
-    counterService: boolean = false;
-    takeOut: boolean = false;
-
-    priceRange: any = {lower: 1, upper: 5};
-    distanceRange: any = 0;
-
-
     constructor(
         platform: Platform,
         statusBar: StatusBar,
@@ -51,13 +34,6 @@ export class MyApp {
             splashScreen.hide();
         });
     }
-
-
-
-    updatePreferences(preference: string, status: boolean): void {
-        console.log('take me out');
-    }
-
 
     getFilteredRestaurants(): void {
         this.preferencesFilterService.filterRestaurants();
