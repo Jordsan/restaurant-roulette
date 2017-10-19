@@ -4,6 +4,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { HttpModule } from '@angular/http';
+import { SwingModule } from 'angular2-swing';
+
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -13,7 +16,6 @@ import { ProfilePage } from '../pages/profile/profile';
 import { PreferencesFilterService } from '../services/preferences-filter/preferences-filter.service';
 import { RestaurantsService } from '../services/restaurants/restaurants.service';
 
-import { RestaurantsComponent } from '../components/restaurants/restaurants.component';
 import { RouletteComponent } from '../components/roulette/roulette.component';
 import { RestaurantDetailComponent } from '../components/restaurant-detail/restaurant-detail.component';
 import { PreferencesComponent } from '../components/preferences/preferences.component';
@@ -26,7 +28,6 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
         RoulettePage,
         ProfilePage,
         TabsPage,
-        RestaurantsComponent,
         RouletteComponent,
         RestaurantDetailComponent,
         PreferencesComponent,
@@ -34,6 +35,8 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
     ],
     imports: [
         BrowserModule,
+        HttpModule,
+        SwingModule,
         IonicModule.forRoot(MyApp)
     ],
     bootstrap: [IonicApp],

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Events } from 'ionic-angular';
 
 import { Restaurant } from '../../components/restaurants/restaurant';
 
-import { ProfileService } from '../profile/profile.service'
-import { PreferencesFilterService } from '../preferences-filter/preferences-filter.service'
+import { ProfileService } from '../profile/profile.service';
+import { PreferencesFilterService } from '../preferences-filter/preferences-filter.service';
 
 
 @Injectable()
@@ -14,12 +14,10 @@ export class RouletteService {
     private masterFilteredList: Restaurant[];
     private restaurants: Restaurant[];
 
-    private recommendedRestaurantsSubject = new Subject<Restaurant[]>();
-    public recommendedRestaurantsStream$ = this.recommendedRestaurantsSubject.asObservable();
-
     constructor(
         private preferencesFilterService: PreferencesFilterService,
-        private profileService: ProfileService
+        private profileService: ProfileService,
+        private events: Events
     ) {
         this.restaurants = new Array();
         this.masterFilteredList = new Array();
@@ -62,7 +60,7 @@ export class RouletteService {
     }
 
     broadcastListChange(list: Restaurant[]): void {
-        this.recommendedRestaurantsSubject.next(list);
+        this.events.publish('restaurant-recommend', list);
     }
 
     chooseRestaurants(): void {
@@ -96,6 +94,14 @@ export class RouletteService {
                 }
                 else {
                     tagsMap.set(tag, 1);
+                }
+            }
+            for (let type of restaurant.types) {
+                if (tagsMap.has(type)) {
+                    tagsMap.set(type, tagsMap.get(type) + 1);
+                }
+                else {
+                    tagsMap.set(type, 1);
                 }
             }
         }
@@ -140,6 +146,22 @@ export class RouletteService {
                     }
                 }
             }
+            for (let type of restaurant.types) {
+                for (let topTag of topTags) {
+                    if (type == topTag) {
+                        if (restaurantScoreMap.has(restaurant)) {
+                            restaurantScoreMap.set(restaurant, restaurantScoreMap.get(restaurant) + 1)
+                            console.log("SETTING KEY: " + restaurant.name + " [" + restaurantScoreMap.get(restaurant) + "]");
+                            console.log("   tag-match: " + topTag)
+                        }
+                        else {
+                            restaurantScoreMap.set(restaurant, 1);
+                            console.log("CREATING KEY: " + restaurant.name + " [1]");
+                            console.log("   tag-match: " + topTag)
+                        }
+                    }
+                }
+            }
         }
 
         restaurantScoreMap.forEach(this.logRestaurantScore);
@@ -163,9 +185,6 @@ export class RouletteService {
             tempRestaurant = null;
             tempMax = 0;
         }
-
-        this.restaurants.reverse();
-        console.log(this.restaurants);
 
         this.broadcastListChange(this.restaurants);
     }

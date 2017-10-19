@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
-import { Subject } from 'rxjs/Subject';
 
-
-import { Restaurant } from '../../components/restaurants/restaurant'
-import { RestaurantsService } from '../restaurants/restaurants.service'
+import { Restaurant } from '../../components/restaurants/restaurant';
+import { RestaurantsService } from '../restaurants/restaurants.service';
 
 
 @Injectable()
 export class PreferencesFilterService {
-
-    private filteredRestaurantsSubject = new Subject<Restaurant[]>();
-    public filteredRestaurantsStream$ = this.filteredRestaurantsSubject.asObservable();
 
     private filteredRestaurants: Restaurant[];
     private cuisinesList: string[];
@@ -41,7 +36,7 @@ export class PreferencesFilterService {
     }
 
     broadcastListChange(list: Restaurant[]): void {
-        this.filteredRestaurantsSubject.next(list);
+        this.events.publish('restaurant-filter', list);
     }
 
     filterRestaurants(): void {
@@ -98,7 +93,12 @@ export class PreferencesFilterService {
     }
 
     getFilteredRestaurants(): Restaurant[] {
-        return this.filteredRestaurants;
+        if (this.filteredRestaurants.length > 0) {
+            return this.filteredRestaurants;            
+        }
+        else {
+            return this.restaurantsService.getAllRestaurants();
+        }
     }
 
 }

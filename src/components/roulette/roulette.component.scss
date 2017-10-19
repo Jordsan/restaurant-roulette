@@ -2,7 +2,7 @@ $background : #DBC996;
 
 .restaurant-slides {
 
-    height: 75vh;
+    height: 100%;
     border-color: #000000;
     border-style: solid;
     background-color: $background;
@@ -20,4 +20,19 @@ $background : #DBC996;
     height: 5vh;
   }
 
-  
+  #card-stack {
+    width: 90%;
+    height: 400px;
+    background: #BD3A06;
+    border: 10px solid #000000;
+    margin: 100px auto 0;
+    position: relative;
+  }
+ 
+  #card-stack ion-card {
+    border-radius: 5px;
+    position: absolute;
+    text-align: center;
+    top: 3%;
+    height: 90%;
+  }

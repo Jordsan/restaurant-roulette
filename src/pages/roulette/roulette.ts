@@ -12,31 +12,12 @@ import { RouletteService } from '../../services/roulette/roulette.service';
     selector: 'page-roulette',
     templateUrl: 'roulette.html',
 })
-export class RoulettePage implements OnInit {
-
-    restaurants: Restaurant[];
+export class RoulettePage {
 
     constructor(private navCtrl: NavController,
         private navParams: NavParams,
         private preferencesFilterService: PreferencesFilterService,
         private profileService: ProfileService,
         private rouletteService: RouletteService) {
-
-    }
-
-    ngOnInit(): void {
-        this.preferencesFilterService.filteredRestaurantsStream$
-            .subscribe(list => {
-                this.restaurants = list;
-            });
-    }
-
-    test() {
-        for (let restaurant of this.restaurants) {
-            console.log("roulette test: " + restaurant.name);
-        }
-    }
-
-    ionViewDidLoad() {
     }
 }

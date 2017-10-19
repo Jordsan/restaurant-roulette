@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { ProfileService } from '../../services/profile/profile.service';
 
@@ -8,13 +8,21 @@ import { ProfileService } from '../../services/profile/profile.service';
     selector: 'restaurant-detail',
     templateUrl: 'restaurant-detail.component.html'
 })
-export class RestaurantDetailComponent {
+export class RestaurantDetailComponent implements OnInit {
 
     @Input()
     private restaurant: Restaurant;
 
-    constructor(private profileService: ProfileService) {
+    private symbol: string = "";
 
+    constructor(private profileService: ProfileService) {
+        
+    }
+
+    ngOnInit(): void {
+        for (var i = 0; i < this.restaurant.price; i++){
+            this.symbol += "$";
+        }
     }
 
     getMoreDetail(): void {
