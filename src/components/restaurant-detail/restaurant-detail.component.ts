@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { ProfileService } from '../../services/profile/profile.service';
 
@@ -15,7 +16,7 @@ export class RestaurantDetailComponent implements OnInit {
 
     private symbol: string = "";
 
-    constructor(private profileService: ProfileService) {
+    constructor(private profileService: ProfileService, private events: Events) {
         
     }
 
@@ -26,18 +27,6 @@ export class RestaurantDetailComponent implements OnInit {
     }
 
     getMoreDetail(): void {
-
-    }
-
-    getPrev(): void {
-
-    }
-
-    select(): void {
-        this.profileService.addRestaurant(this.restaurant);
-    }
-
-    getNext(): void {
-
+        this.events.publish('restaurant-more-detail', this.restaurant);
     }
 }

@@ -1,7 +1,5 @@
-$background : #DBC996;
-
+$background: #DBC996;
 .restaurant-slides {
-
     height: 100%;
     border-color: #000000;
     border-style: solid;
@@ -12,27 +10,132 @@ $background : #DBC996;
     margin: auto;
     display: block;
     position: relative;
+}
 
-  }
-
-  #play-button {
+#play-button {
     width: 20vw;
     height: 5vh;
-  }
+}
 
-  #card-stack {
-    width: 90%;
-    height: 400px;
+#card-stack {
+    width: 100%;
+    height: 80%;
     background: #BD3A06;
-    border: 10px solid #000000;
-    margin: 100px auto 0;
+    margin-bottom: 5%;
     position: relative;
-  }
- 
-  #card-stack ion-card {
-    border-radius: 5px;
+}
+
+#card-stack ion-card {
+    border-radius: 10px;
+    border: 2px solid #eee;
     position: absolute;
     text-align: center;
-    top: 3%;
+    top: 2.5%;
     height: 90%;
-  }
+    margin-top: 0px;
+}
+
+ion-card-content {
+    padding: 5px !important;
+    height: 100%;
+}
+
+#restaurant-detail-wrapper {
+    height: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+restaurant-detail {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.button-col {
+    padding: 0px;
+    align-content: center;
+    align-items: center;
+}
+
+ion-col button {
+    width: 100%;
+}
+.button-container {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 5px;
+}
+
+.button-row {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    height: 40px;
+}
+
+.button-row-icons {
+    font-size: 2.5em;
+}
+
+.left-right-buttons {
+    margin: 0px !important;
+    height: 40px;
+}
+
+#select-button {
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 60px;
+    height: 60px;
+    margin: 0px !important;
+    margin-top: 10px !important;
+}
+
+#left-button {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    margin: 5px -20px 5px 0 !important;
+}
+
+#right-button {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    margin: 5px 0 5px -20px !important;
+}
+
+
+/*
+.button-row-icons {
+    font-size: 2.5em;
+    display: flex;
+}
+
+.left-right-buttons {
+    background: none;
+    color: #AD001A;
+    padding: 0 20px;
+    border: 2px solid #AD001A;
+    margin: 0px !important;
+    margin-top: 5px !important;
+    line-height: 1;
+    height: 40px;
+    z-index: 5;
+    position: relative;
+    outline: 0 !important;
+    
+}
+
+#select-button {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 0px !important;
+    z-index: 10;
+    position: relative;
+}
+
+
+*/

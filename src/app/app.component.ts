@@ -25,7 +25,6 @@ export class MyApp {
         statusBar: StatusBar,
         splashScreen: SplashScreen,
         private preferencesFilterService: PreferencesFilterService,
-        private rouletteService: RouletteService,
     ) {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
@@ -34,6 +33,7 @@ export class MyApp {
             splashScreen.hide();
         });
     }
+
 
     getFilteredRestaurants(): void {
         this.preferencesFilterService.filterRestaurants();

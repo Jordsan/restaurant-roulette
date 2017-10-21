@@ -22,8 +22,8 @@ export class RouletteComponent {
 
     //@ViewChild(Slides) slides: Slides;
 
-    @ViewChild('myswing1') swingStack: SwingStackComponent;
-    @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
+    @ViewChild('swingStack') swingStack: SwingStackComponent;
+    @ViewChildren('cardStack') swingCards: QueryList<SwingCardComponent>;
     
     recommendedRestaurants: Restaurant[];
     stackList: Restaurant[];
@@ -40,6 +40,11 @@ export class RouletteComponent {
         events.subscribe('restaurant-recommend', (list) => {
             this.recommendedRestaurants = list;
         });
+        events.subscribe('restaurant-more-detail', (data) => {
+            this.displayedRestaurant = data;
+            this.selectCard(this.displayedRestaurant);
+        });
+
     
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
@@ -49,7 +54,7 @@ export class RouletteComponent {
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: (d) => {
-                return 800;
+                return 700;
             }
         };
     }
@@ -64,6 +69,7 @@ export class RouletteComponent {
         var color = '';
         var abs = Math.abs(x);
         let min = Math.trunc(Math.min(16 * 16 - abs, 16 * 16));
+        /*
         let hexCode = this.decimalToHex(min, 2);
 
         if (x < 0) {
@@ -72,7 +78,8 @@ export class RouletteComponent {
             color = '#' + hexCode + 'FF' + hexCode;
         }
 
-        element.style.background = color;
+        //element.style.background = color;
+        */
         element.style['transform'] = `translate3d(0, 0, 0) translate(${x}px, ${y}px) rotate(${r}deg)`;
     }
 
@@ -97,15 +104,22 @@ export class RouletteComponent {
             //this.recentCard = 'You disliked: ' + removedCard.email;
             console.log("Swipe left - " + swipe);
         }
+        console.log(this.stackList);
     }   
+
+    selectCard(restaurant: Restaurant): void {
+        console.log(restaurant);
+    }
 
     generateRestaurant(): void {
         this.rouletteService.chooseRestaurants();
 
-        this.stackList = this.recommendedRestaurants.slice(0);
+        this.stackList = this.recommendedRestaurants.slice(0).reverse();
 
         console.log("Recommended Restaurants: ");
         console.log(this.recommendedRestaurants);
+        console.log("Stack List: " );
+        console.log(this.stackList);
     }
 
 

@@ -1,13 +1,13 @@
-<ion-menu [content]="content" id="roulette-menu" (ionClose)="getFilteredRestaurants()">
+<ion-menu #rouletteMenu [content]="content" id="roulette-menu" (ionClose)="getFilteredRestaurants()" [swipeEnabled]="false">
     <ion-header>
         <ion-toolbar color="primary">
             <ion-title class="title">Preferences</ion-title>
         </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content no-bounce>
         <preferences></preferences>
     </ion-content>
 
 </ion-menu>
-<ion-nav [root]="rootPage" #content></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

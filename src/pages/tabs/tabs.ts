@@ -15,12 +15,14 @@ import { ProfileService } from '../../services/profile/profile.service';
 })
 export class TabsPage {
 
+    rootPage: any = this;
     roulettePage: any = RoulettePage;
     profilePage: any = ProfilePage;
 
     mySelectedIndex: number;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams) {
+    constructor(public navCtrl: NavController, public navParams: NavParams,
+                private preferencesFilterService: PreferencesFilterService) {
         this.mySelectedIndex = navParams.data.tabIndex || 0;
     };
 
