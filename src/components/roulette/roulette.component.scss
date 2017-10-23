@@ -1,11 +1,3 @@
-$background: #DBC996;
-.restaurant-slides {
-    height: 100%;
-    border-color: #000000;
-    border-style: solid;
-    background-color: $background;
-}
-
 .bottom {
     margin: auto;
     display: block;
@@ -13,15 +5,16 @@ $background: #DBC996;
 }
 
 #play-button {
-    width: 20vw;
-    height: 5vh;
+    width: 20%;
+    height: 5%;
+    z-index: -1;
+    margin-top: 2.5%;
 }
 
 #card-stack {
     width: 100%;
-    height: 80%;
+    height: 90%;
     background: #BD3A06;
-    margin-bottom: 5%;
     position: relative;
 }
 
@@ -31,7 +24,7 @@ $background: #DBC996;
     position: absolute;
     text-align: center;
     top: 2.5%;
-    height: 90%;
+    height: 95%;
     margin-top: 0px;
 }
 
@@ -41,9 +34,9 @@ ion-card-content {
 }
 
 #restaurant-detail-wrapper {
+    position: relative;
     height: 100%;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding: 0px;
 }
 
 restaurant-detail {
@@ -62,10 +55,11 @@ ion-col button {
     width: 100%;
 }
 .button-container {
-    position: relative;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     height: 60px;
-    margin-bottom: 5px;
+    margin-bottom: 2.5%;
 }
 
 .button-row {
@@ -105,37 +99,3 @@ ion-col button {
     border-bottom-right-radius: 15px;
     margin: 5px 0 5px -20px !important;
 }
-
-
-/*
-.button-row-icons {
-    font-size: 2.5em;
-    display: flex;
-}
-
-.left-right-buttons {
-    background: none;
-    color: #AD001A;
-    padding: 0 20px;
-    border: 2px solid #AD001A;
-    margin: 0px !important;
-    margin-top: 5px !important;
-    line-height: 1;
-    height: 40px;
-    z-index: 5;
-    position: relative;
-    outline: 0 !important;
-    
-}
-
-#select-button {
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    margin: 0px !important;
-    z-index: 10;
-    position: relative;
-}
-
-
-*/
