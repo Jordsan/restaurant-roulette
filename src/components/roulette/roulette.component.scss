@@ -1,3 +1,7 @@
+#roulette-content {
+    background: #BD3A06;
+}
+
 .bottom {
     margin: auto;
     display: block;
@@ -5,16 +9,19 @@
 }
 
 #play-button {
-    width: 20%;
-    height: 5%;
-    z-index: -1;
-    margin-top: 2.5%;
+    position: absolute;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: -150px;
 }
 
 #card-stack {
     width: 100%;
-    height: 90%;
-    background: #BD3A06;
+    height: 95%;
     position: relative;
 }
 
@@ -24,7 +31,7 @@
     position: absolute;
     text-align: center;
     top: 2.5%;
-    height: 95%;
+    height: 100%;
     margin-top: 0px;
 }
 
@@ -69,8 +76,15 @@ ion-col button {
     height: 40px;
 }
 
-.button-row-icons {
-    font-size: 2.5em;
+.left-right-icons {
+    font-size: 2em;
+}
+
+#select-button {
+    font-size: 3em;
+    padding: 0px;
+    text-shadow: none;
+    box-shadow: none;
 }
 
 .left-right-buttons {

@@ -46,7 +46,7 @@ export class MyApp {
     }
 
     goToProfile(): void {
-        this.navCtrl.push(ProfilePage);
+        this.navCtrl.push(ProfilePage, {}, { animate: false });
     }
 
 }

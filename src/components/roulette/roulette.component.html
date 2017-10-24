@@ -1,5 +1,5 @@
-<ion-content no-bounce>
-    <div swing-stack #swingStack [stackConfig]="stackConfig" (throwoutleft)="swipeCard(false)" (throwoutright)="swipeCard(true)"
+<ion-content id="roulette-content" no-bounce>
+    <div swing-stack #swingStack [stackConfig]="stackConfig" (throwoutup)="selectCard(this.displayedRestaurant)" (throwoutleft)="swipeCard(false)" (throwoutright)="swipeCard(true)"
         id="card-stack">
         <ion-card #cardStack swing-card *ngFor="let restaurant of stackList">
             <ion-card-content>
@@ -9,7 +9,7 @@
                         <ion-row class="button-row">
                             <ion-col col-5 class="button-col">
                                 <button class="left-right-buttons" id="left-button" ion-button no-shadow (click)="swipeCard(false)">
-                                    <ion-icon class="button-row-icons" name="arrow-dropleft"></ion-icon>
+                                    <ion-icon class="left-right-icons" name="thumbs-down"></ion-icon>
                                 </button>
                             </ion-col>
                             <ion-col>
@@ -17,13 +17,13 @@
                             </ion-col>
                             <ion-col col-5 class="button-col">
                                 <button class="left-right-buttons" id="right-button" ion-button no-shadow (click)="swipeCard(true)">
-                                    <ion-icon class="button-row-icons" name="arrow-dropright"></ion-icon>
+                                    <ion-icon class="left-right-icons" name="thumbs-up"></ion-icon>
                                 </button>
                             </ion-col>
                         </ion-row>
                         
-                        <button id="select-button" ion-button no-shadow (click)="selectCard(restaurant)">
-                            <ion-icon class="button-row-icons" name="checkmark-circle-outline"></ion-icon>
+                        <button id="select-button" ion-button no-shadow (click)="selectCard(this.displayedRestaurant)">
+                            <ion-icon id="check-mark-icon" name="ios-checkmark"></ion-icon>
                         </button>
                             
                     </div>
@@ -31,5 +31,5 @@
             </ion-card-content>
         </ion-card>
     </div>
-    <button id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>
+    <button *ngIf="showPlayButton" text-center id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>
 </ion-content>

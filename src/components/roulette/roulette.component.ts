@@ -5,6 +5,7 @@ import { RouletteService } from '../../services/roulette/roulette.service';
 import { ProfileService } from '../../services/profile/profile.service';
 
 import {
+    Direction,
     StackConfig,
     Stack,
     Card,
@@ -27,10 +28,15 @@ export class RouletteComponent {
     
     recommendedRestaurants: Restaurant[];
     stackList: Restaurant[];
+
+    selectedRestaurant: Restaurant;
     displayedRestaurant: Restaurant;
     removedRestaurant: Restaurant;
 
     stackConfig: StackConfig;
+
+    showPlayButton: boolean = true;
+    swipeCount: number = 0;
 
     constructor(private rouletteService: RouletteService,
         private profileService: ProfileService,
@@ -42,20 +48,20 @@ export class RouletteComponent {
         });
         events.subscribe('restaurant-more-detail', (data) => {
             this.displayedRestaurant = data;
-            this.selectCard(this.displayedRestaurant);
+            this.getMoreDetail(this.displayedRestaurant);
         });
 
     
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                return Math.min(Math.abs(offsetX) / (element.offsetWidth / 2), 1);
-            },
+                return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 1.35), Math.abs(offsetY) / (element.offsetHeight / 2)), 1);            },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: (d) => {
-                return 700;
-            }
+                return 800;
+            },
+            allowedDirections: [Direction.LEFT, Direction.RIGHT, Direction.UP]
         };
     }
 
@@ -105,29 +111,38 @@ export class RouletteComponent {
             console.log("Swipe left - " + swipe);
         }
         console.log(this.stackList);
+        this.swipeCount++;
+        if (this.swipeCount === this.recommendedRestaurants.length){
+            this.showPlayButton = true;
+        }
+        this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
     }   
 
     selectCard(restaurant: Restaurant): void {
+        this.selectedRestaurant = this.stackList.pop();
+        this.swipeCount++;
+        if (this.swipeCount === this.recommendedRestaurants.length){
+            this.showPlayButton = true;
+        }
+        this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
         console.log(restaurant);
     }
 
+    getMoreDetail(restaurant: Restaurant): void {
+        console.log("more detail");
+    }
+
     generateRestaurant(): void {
+        this.showPlayButton = false;
         this.rouletteService.chooseRestaurants();
 
         this.stackList = this.recommendedRestaurants.slice(0).reverse();
+        this.displayedRestaurant = this.recommendedRestaurants[0];
+        this.swipeCount = 0;
 
         console.log("Recommended Restaurants: ");
         console.log(this.recommendedRestaurants);
         console.log("Stack List: " );
         console.log(this.stackList);
-    }
-
-
-    swipeNext(): void {
-        console.log("Next");
-    }
-
-    swipePrev(): void {
-        console.log("Prev");
     }
 }

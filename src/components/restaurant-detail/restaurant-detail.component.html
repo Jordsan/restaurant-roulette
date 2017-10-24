@@ -1,14 +1,12 @@
 <ion-grid id="detail-grid">
     <img draggable="false" class="restaurant-image" src="https://placeholdit.co//i/350x250?&bg=eee&fc=000000&text=Restaurant Image">
     <ion-row>
-        <ion-col col-10>
+        <ion-col>
             <h2><strong>{{ restaurant.name }}</strong></h2>
         </ion-col>
-        <ion-col col-2>
-            <button ion-button id="more-button" (click)="getMoreDetail()">
-            <ion-icon name="more"></ion-icon>
-            </button>
-        </ion-col>
+        <button ion-button item-right id="more-button" (click)="getMoreDetail()">
+            <ion-icon name="ios-more"></ion-icon>
+        </button>
     </ion-row>
     <ion-row>
         <ion-col>
