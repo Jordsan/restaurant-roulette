@@ -1,3 +1,16 @@
 cuisines {
 
 }
+
+.popover-content {
+    width: 80% !important;
+    margin-top: 40px;
+    -webkit-box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.3);
+}
+
+.cuisine-checkbox {
+    position: static;
+    display: block;
+    margin: 9px 36px 9px 4px;
+}

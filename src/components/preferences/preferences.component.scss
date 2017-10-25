@@ -1,14 +1,60 @@
-cuisines {
+preferences {
+    .label-md {
+        margin: 0;
+    }
 
+    .label-ios {
+        margin: 0;
+    }
+    
+    .last-item .item-inner{
+        border-bottom: none !important;
+    }
+
+    .last-item {
+        border-bottom: 0.55px solid #c8c7cc !important;
+    }
 }
 
 .preference-button {
-    width: 100%;
-    text-align: center;
+    width: 95%;
     position: relative;
+    margin: 2.5%;
+    height: 40px;
 }
 
 .icon-formatting {
     padding-right: 0px !important;
     
+}
+
+.type-checkbox {
+    position: static;
+    display: block;
+    margin: 9px 36px 9px 4px;
+}
+
+#price-header {
+    margin-bottom: 0;
+}
+
+#type-header {
+    margin-bottom: 0;
+}
+
+#distance-header {
+    margin-bottom: 0;
+}
+
+.preference-range {
+    height: 40px;
+}
+
+#last-item {
+    border-bottom: none;
+}
+
+#keyword-input {
+    margin: 0;
+    width: 95%;
 }

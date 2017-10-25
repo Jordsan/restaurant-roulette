@@ -10,6 +10,7 @@ import { SwingModule } from 'angular2-swing';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
+import { PreferencesPage } from '../pages/preferences/preferences';
 import { RoulettePage } from '../pages/roulette/roulette';
 import { ProfilePage } from '../pages/profile/profile';
 
@@ -28,6 +29,7 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
         RoulettePage,
         ProfilePage,
         TabsPage,
+        PreferencesPage,
         RouletteComponent,
         RestaurantDetailComponent,
         PreferencesComponent,
@@ -37,12 +39,20 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
         BrowserModule,
         HttpModule,
         SwingModule,
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp, {
+            platforms: {
+                ios: {
+                    popoverEnter: "popover-md-pop-in",
+                    popoverLeave: "popover-md-pop-out"
+                }
+            }
+        })
     ],
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
         TabsPage,
+        PreferencesPage,
         RoulettePage,
         ProfilePage,
         CuisinesComponent
@@ -50,8 +60,6 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
     providers: [
         StatusBar,
         SplashScreen,
-        PreferencesFilterService,
-        RestaurantsService,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
     ]
 })

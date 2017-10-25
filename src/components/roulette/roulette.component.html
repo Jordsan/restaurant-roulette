@@ -1,35 +1,34 @@
-<ion-content id="roulette-content" no-bounce>
-    <div swing-stack #swingStack [stackConfig]="stackConfig" (throwoutup)="selectCard(this.displayedRestaurant)" (throwoutleft)="swipeCard(false)" (throwoutright)="swipeCard(true)"
-        id="card-stack">
-        <ion-card #cardStack swing-card *ngFor="let restaurant of stackList">
-            <ion-card-content>
-                <ion-grid id="restaurant-detail-wrapper">
-                    <restaurant-detail [restaurant]="restaurant"></restaurant-detail>
-                    <div class="button-container">
-                        <ion-row class="button-row">
-                            <ion-col col-5 class="button-col">
-                                <button class="left-right-buttons" id="left-button" ion-button no-shadow (click)="swipeCard(false)">
-                                    <ion-icon class="left-right-icons" name="thumbs-down"></ion-icon>
-                                </button>
-                            </ion-col>
-                            <ion-col>
-    
-                            </ion-col>
-                            <ion-col col-5 class="button-col">
-                                <button class="left-right-buttons" id="right-button" ion-button no-shadow (click)="swipeCard(true)">
-                                    <ion-icon class="left-right-icons" name="thumbs-up"></ion-icon>
-                                </button>
-                            </ion-col>
-                        </ion-row>
-                        
-                        <button id="select-button" ion-button no-shadow (click)="selectCard(this.displayedRestaurant)">
-                            <ion-icon id="check-mark-icon" name="ios-checkmark"></ion-icon>
-                        </button>
-                            
-                    </div>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
-    </div>
-    <button *ngIf="showPlayButton" text-center id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>
-</ion-content>
+<div swing-stack #swingStack [stackConfig]="stackConfig" (throwoutup)="selectCard(this.displayedRestaurant)" (throwoutleft)="swipeCard(false)"
+    (throwoutright)="swipeCard(true)" id="card-stack">
+    <ion-card #cardStack swing-card *ngFor="let restaurant of stackList">
+        <ion-card-content>
+            <ion-grid id="restaurant-detail-wrapper">
+                <restaurant-detail [restaurant]="restaurant"></restaurant-detail>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+
+</div>
+<div class="button-container">
+    <ion-row class="button-row">
+        <ion-col col-5 class="button-col">
+            <button class="left-right-buttons" id="left-button" ion-button no-shadow (click)="swipeCard(false)">
+                <ion-icon class="left-right-icons" name="md-thumbs-down"></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col>
+
+        </ion-col>
+        <ion-col col-5 class="button-col">
+            <button class="left-right-buttons" id="right-button" ion-button no-shadow (click)="swipeCard(true)">
+                <ion-icon class="left-right-icons" name="md-thumbs-up"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
+
+    <button id="select-button" ion-button no-shadow (click)="selectCard(this.displayedRestaurant)">
+        <ion-icon id="check-mark-icon" name="ios-checkmark"></ion-icon>
+    </button>
+
+</div>
+<button *ngIf="showPlayButton" text-center id="play-button" class="bottom" (click)="generateRestaurant()">Generate Restaurants</button>

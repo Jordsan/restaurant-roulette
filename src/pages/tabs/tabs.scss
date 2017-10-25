@@ -12,3 +12,8 @@ page-tabs {
 .tabbar {
     height: 40px;
 }
+
+.ios .tabbar {
+    height: 60px;
+    padding-top: 20px;
+}

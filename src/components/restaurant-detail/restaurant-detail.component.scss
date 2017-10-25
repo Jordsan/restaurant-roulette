@@ -6,7 +6,11 @@
 #more-button {
     position: absolute;
     right: 0;
-    border-radius: 5px;
+    background: transparent;
+    padding-right: 5px;
+    margin: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 .restaurant-image {
@@ -19,4 +23,10 @@
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+
+#more-detail-icon {
+    font-size: 30px;
+    color: color($colors, primary);
 }

@@ -1,47 +1,53 @@
-<ion-grid>
-    <ion-row>
-        <ion-col text-center>
-            <button class="preference-button" ion-button icon-only (click)="cuisinesPopover($event)">
-                Select Your Cuisines
-                <ion-icon class="icon-formatting" name="md-arrow-dropdown"></ion-icon>
-            </button>
-        </ion-col>
-    </ion-row>
-</ion-grid>
+<button mode="ios" class="preference-button" ion-button icon-only (click)="cuisinesPopover($event)">
+    Select Your Cuisines
+    <ion-icon class="icon-formatting" name="md-arrow-dropdown"></ion-icon>
+</button>
 
 <ion-list class="checkbox">
-    <ion-item>
-        <ion-checkbox [(ngModel)]="driveThrough" (ionChange)="updateTypes('drive-through', driveThrough)"></ion-checkbox>
+    <ion-list-header mode="ios" id="type-header">
+        Restaurant Types
+    </ion-list-header>
+    <ion-item id="drive-through">
+        <ion-checkbox class="type-checkbox" mode="md" [(ngModel)]="driveThrough" (ionChange)="updateTypes('drive-through', driveThrough)"></ion-checkbox>
         <ion-label>Drive Through</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox [(ngModel)]="counterService" (ionChange)="updateTypes('counter-service', counterService)"></ion-checkbox>
+        <ion-checkbox class="type-checkbox" mode="md" [(ngModel)]="counterService" (ionChange)="updateTypes('counter-service', counterService)"></ion-checkbox>
         <ion-label>Counter Service</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox [(ngModel)]="sitDown" (ionChange)="updateTypes('sit-down', sitDown)"></ion-checkbox>
+        <ion-checkbox class="type-checkbox" mode="md" [(ngModel)]="sitDown" (ionChange)="updateTypes('sit-down', sitDown)"></ion-checkbox>
         <ion-label>Sit Down</ion-label>
     </ion-item>
     <ion-item>
-        <ion-checkbox [(ngModel)]="takeOut" (ionChange)="updateTypes('take-out', takeOut)"></ion-checkbox>
+        <ion-checkbox class="type-checkbox" mode="md" [(ngModel)]="takeOut" (ionChange)="updateTypes('take-out', takeOut)"></ion-checkbox>
         <ion-label>Take Out</ion-label>
     </ion-item>
-    <ion-item>
-        <ion-checkbox [(ngModel)]="delivery" (ionChange)="updateTypes('delivery', delivery)"></ion-checkbox>
+    <ion-item class="last-item">
+        <ion-checkbox class="type-checkbox" mode="md" [(ngModel)]="delivery" (ionChange)="updateTypes('delivery', delivery)"></ion-checkbox>
         <ion-label>Delivery</ion-label>
     </ion-item>
-    <ion-item>
-        <ion-label>Price Range</ion-label>
-        <ion-range min="1" max="5" snaps="true" dualKnobs="true" pin="true" [(ngModel)]="priceRange" color="primary" (ionChange)="updatePrice()">
-            <ion-label range-left>$</ion-label>
-            <ion-label range-right>{{ symbol }}</ion-label>
+    <ion-list-header mode="ios" id="price-header">
+        Price Range
+        <ion-badge mode="md" item-end color="primary">{{ getSymbol(priceRange.lower) }} - {{ getSymbol(priceRange.upper) }}</ion-badge>
+    </ion-list-header>
+    <ion-item class="last-item">
+        <ion-range class="preference-range" mode="md" min="1" max="5" snaps="true" dualKnobs="true" [(ngModel)]="priceRange" color="primary"
+            (ionChange)="updatePrice()">
         </ion-range>
     </ion-item>
-    <ion-item>
-        <ion-label>Distance (mi)</ion-label>
-        <ion-range min="0" max="25" snaps="true" pin="true" [(ngModel)]="distanceRange" color="primary" (ionChange)="updateDistance()">
-            <ion-label range-left>0</ion-label>
-            <ion-label range-right>25</ion-label>
+    <ion-list-header mode="ios" id="distance-header">
+        Maximum Distance
+        <ion-badge mode="md" text-lowercase item-end color="primary">{{ distanceRange }} mi</ion-badge>
+    </ion-list-header>
+    <ion-item class="last-item">
+        <ion-range class="preference-range" mode="md" min="0" max="25" snaps="true" [(ngModel)]="distanceRange" color="primary" (ionChange)="updateDistance()">
         </ion-range>
+    </ion-item>
+    <ion-list-header mode="ios" id="keyword-header">
+        Search for Key Words
+    </ion-list-header>
+    <ion-item mode="ios" class="last-item">
+        <ion-input mode="ios" type="search" id="keyword-input"></ion-input>
     </ion-item>
 </ion-list>

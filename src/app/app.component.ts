@@ -3,6 +3,7 @@ import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { TabsPage } from '../pages/tabs/tabs';
 import { RoulettePage } from '../pages/roulette/roulette';
 import { ProfilePage } from '../pages/profile/profile';
 import { PreferencesComponent } from '../components/preferences/preferences.component';
@@ -19,20 +20,23 @@ import { RouletteService } from '../services/roulette/roulette.service';
     providers: [PreferencesFilterService, RestaurantsService, ProfileService, RouletteService],
 })
 export class MyApp {
-    rootPage: any = RoulettePage;
+    rootPage: any = TabsPage;
     @ViewChild('content') navCtrl: NavController
 
     constructor(
         platform: Platform,
-        statusBar: StatusBar,
+        private statusBar: StatusBar,
         splashScreen: SplashScreen,
         private preferencesFilterService: PreferencesFilterService,
     ) {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
-            statusBar.styleDefault();
+            this.statusBar.styleDefault();
             splashScreen.hide();
+
+            this.statusBar.overlaysWebView(true);
+            this.statusBar.backgroundColorByHexString('#ffffff');
         });
     }
 

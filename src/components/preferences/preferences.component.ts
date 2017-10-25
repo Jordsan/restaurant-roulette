@@ -11,7 +11,6 @@ export class PreferencesComponent {
 
     cuisinesList: string[];
     restaurantTypes: string[];
-    symbol: string = '$$$$$';
     priceRange: { lower: number, upper: number } = { lower: 1, upper: 5 };
     distanceRange: number = 25;
 
@@ -56,4 +55,12 @@ export class PreferencesComponent {
         this.events.publish('types-update', this.restaurantTypes);
     }
 
+    getSymbol(num: number): string {
+        let answer: string = "";
+
+        for (let i = 0; i < num; i++){
+            answer += '$';
+        }
+        return answer
+    }
 }

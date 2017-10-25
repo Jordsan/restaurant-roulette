@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, ViewEncapsulation, ViewChildren, QueryList } from '@angular/core';
-import { Slides, Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { RouletteService } from '../../services/roulette/roulette.service';
 import { ProfileService } from '../../services/profile/profile.service';
@@ -21,8 +21,6 @@ import {
 })
 export class RouletteComponent {
 
-    //@ViewChild(Slides) slides: Slides;
-
     @ViewChild('swingStack') swingStack: SwingStackComponent;
     @ViewChildren('cardStack') swingCards: QueryList<SwingCardComponent>;
     
@@ -35,6 +33,7 @@ export class RouletteComponent {
 
     stackConfig: StackConfig;
 
+    firstLoad: boolean = true;
     showPlayButton: boolean = true;
     swipeCount: number = 0;
 
@@ -45,6 +44,12 @@ export class RouletteComponent {
         this.stackList = new Array ();
         events.subscribe('restaurant-recommend', (list) => {
             this.recommendedRestaurants = list;
+            
+            if (this.firstLoad = false){
+                this.stackList = this.recommendedRestaurants.slice(0).reverse();
+                this.displayedRestaurant = this.recommendedRestaurants[0];
+                this.swipeCount = 0;
+            }
         });
         events.subscribe('restaurant-more-detail', (data) => {
             this.displayedRestaurant = data;
@@ -69,6 +74,7 @@ export class RouletteComponent {
         this.swingStack.throwin.subscribe((event: DragEvent) => {
             event.target.style.background = '#ffffff';
         });
+
     }
 
     onItemMove(element, x, y, r) {
@@ -101,31 +107,37 @@ export class RouletteComponent {
     }
 
     swipeCard(swipe: boolean) {
-        this.removedRestaurant = this.stackList.pop();
-        if (swipe) {
-            //this.recentCard = 'You liked: ' + removedCard.email;
-            console.log("Swipe right - " + swipe);            
-        } 
-        else {
-            //this.recentCard = 'You disliked: ' + removedCard.email;
-            console.log("Swipe left - " + swipe);
+        if (this.stackList.length > 0) {
+            this.removedRestaurant = this.stackList.pop();
+            if (swipe) {
+                //this.recentCard = 'You liked: ' + removedCard.email;
+                console.log("Swipe right - " + swipe);            
+            } 
+            else {
+                //this.recentCard = 'You disliked: ' + removedCard.email;
+                console.log("Swipe left - " + swipe);
+            }
+            console.log(this.stackList);
+            this.swipeCount++;
+            if (this.swipeCount === this.recommendedRestaurants.length){
+                this.showPlayButton = true;
+            }
+            this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
         }
-        console.log(this.stackList);
-        this.swipeCount++;
-        if (this.swipeCount === this.recommendedRestaurants.length){
-            this.showPlayButton = true;
-        }
-        this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
     }   
 
     selectCard(restaurant: Restaurant): void {
-        this.selectedRestaurant = this.stackList.pop();
-        this.swipeCount++;
-        if (this.swipeCount === this.recommendedRestaurants.length){
-            this.showPlayButton = true;
+        if (this.stackList.length > 0) {
+            this.selectedRestaurant = this.stackList.pop();
+            this.swipeCount++;
+            if (this.swipeCount === this.recommendedRestaurants.length){
+                this.showPlayButton = true;
+            }
+            this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
+            console.log(restaurant);
+
+            this.profileService.addRestaurant(restaurant);
         }
-        this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
-        console.log(restaurant);
     }
 
     getMoreDetail(restaurant: Restaurant): void {
@@ -135,6 +147,8 @@ export class RouletteComponent {
     generateRestaurant(): void {
         this.showPlayButton = false;
         this.rouletteService.chooseRestaurants();
+
+        this.firstLoad = false;
 
         this.stackList = this.recommendedRestaurants.slice(0).reverse();
         this.displayedRestaurant = this.recommendedRestaurants[0];

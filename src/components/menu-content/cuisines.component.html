@@ -1,6 +1,6 @@
 <ion-content class="list-wrapper">
     <ion-item *ngFor="let cuisine of cuisineList">
         <ion-label>{{ cuisine.cuisine }}</ion-label>
-        <ion-checkbox [checked]='cuisine.active' [(ngModel)]='cuisine.active' (ionChange)='updateCuisines(cuisine.cuisine, cuisine.active)'></ion-checkbox>
+        <ion-checkbox class="cuisine-checkbox" mode="md" [checked]='cuisine.active' [(ngModel)]='cuisine.active' (ionChange)='updateCuisines(cuisine.cuisine, cuisine.active)'></ion-checkbox>
     </ion-item>
 </ion-content>

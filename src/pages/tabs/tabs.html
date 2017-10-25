@@ -1,4 +1,5 @@
-<ion-tabs [selectedIndex]="mySelectedIndex" #menuTabs class="menuTabs">
-    <ion-tab tabTitle="Roulette" [root]="roulettePage"></ion-tab>
-    <ion-tab tabTitle="Profile" [root]="profilePage"></ion-tab>
+<ion-tabs mode="md" [selectedIndex]="mySelectedIndex" #menuTabs class="menuTabs" tabsPlacement="top">
+    <ion-tab tabIcon="md-settings" [root]="preferencesPage"></ion-tab>
+    <ion-tab tabIcon="md-home" [root]="roulettePage" (ionSelect)="getFilteredRestaurants()"></ion-tab>
+    <ion-tab tabIcon="md-person" [root]="profilePage"></ion-tab>
 </ion-tabs>

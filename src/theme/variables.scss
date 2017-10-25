@@ -23,6 +23,11 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
+$range-md-knob-min-background-color: #AD001A;
+$range-md-tick-width: 0px;
+$badge-md-border-radius: 7px;
+
+$text-input-md-show-focus-highlight: false;
 
 
 // Named Color Variables
@@ -34,11 +39,12 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #AD001A,
+  primary:    #B40000,
   secondary:  #DBC996,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  menu-gray:  #F3F1F1
 );
 
 

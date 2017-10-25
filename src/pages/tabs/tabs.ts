@@ -3,11 +3,11 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { RoulettePage } from '../roulette/roulette';
 import { ProfilePage } from '../profile/profile';
+import { PreferencesPage } from '../preferences/preferences';
 
 import { Restaurant } from '../../components/restaurants/restaurant';
-import { RestaurantsService } from '../../services/restaurants/restaurants.service';
 import { PreferencesFilterService } from '../../services/preferences-filter/preferences-filter.service';
-import { ProfileService } from '../../services/profile/profile.service';
+import { RouletteService } from '../../services/roulette/roulette.service';
 
 @Component({
     selector: 'page-tabs',
@@ -18,12 +18,28 @@ export class TabsPage {
     rootPage: any = this;
     roulettePage: any = RoulettePage;
     profilePage: any = ProfilePage;
+    preferencesPage: any = PreferencesPage;
 
     mySelectedIndex: number;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-                private preferencesFilterService: PreferencesFilterService) {
-        this.mySelectedIndex = navParams.data.tabIndex || 0;
+            private preferencesFilterService: PreferencesFilterService,
+            private rouletteService: RouletteService) {
+        this.mySelectedIndex = navParams.data.tabIndex || 1;
     };
 
+    getFilteredRestaurants(): void {
+        this.preferencesFilterService.filterRestaurants();
+        if (this.checkPreferencesChange()){
+            
+        }
+
+        for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
+            console.log("Filtered Restaurant List: " + restaurant.name);
+        }
+    }
+
+    checkPreferencesChange(): boolean {
+        return true;
+    }
 }
