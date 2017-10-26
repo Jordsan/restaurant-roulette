@@ -38,10 +38,12 @@ export class PreferencesComponent {
 
     updatePrice(): void {
         this.events.publish('price-update', this.priceRange);
+        this.events.publish('preferences-change-listener', true);        
     }
 
     updateDistance(): void {
         this.events.publish('distance-update', this.distanceRange);
+        this.events.publish('preferences-change-listener', true);        
     }
 
     updateTypes(preference: string, action: boolean): void {
@@ -53,6 +55,7 @@ export class PreferencesComponent {
         }
 
         this.events.publish('types-update', this.restaurantTypes);
+        this.events.publish('preferences-change-listener', true);        
     }
 
     getSymbol(num: number): string {

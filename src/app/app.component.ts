@@ -26,32 +26,15 @@ export class MyApp {
     constructor(
         platform: Platform,
         private statusBar: StatusBar,
-        splashScreen: SplashScreen,
+        private splashScreen: SplashScreen,
         private preferencesFilterService: PreferencesFilterService,
     ) {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
-            splashScreen.hide();
-
-            this.statusBar.overlaysWebView(true);
-            this.statusBar.backgroundColorByHexString('#ffffff');
+            this.splashScreen.hide();
         });
     }
-
-
-    getFilteredRestaurants(): void {
-        this.preferencesFilterService.filterRestaurants();
-
-        for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
-            console.log("Filtered Restaurant List: " + restaurant.name);
-        }
-    }
-
-    goToProfile(): void {
-        this.navCtrl.push(ProfilePage, {}, { animate: false });
-    }
-
 }
 

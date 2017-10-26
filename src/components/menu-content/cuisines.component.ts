@@ -59,6 +59,7 @@ export class CuisinesComponent {
         }
 
         this.events.publish('cuisine-update', this.preferencesList);
+        this.events.publish('preferences-change-listener', true);
     }
 
 }

@@ -33,7 +33,7 @@ export class RouletteComponent {
 
     stackConfig: StackConfig;
 
-    firstLoad: boolean = true;
+    firstPlay: boolean = true;
     showPlayButton: boolean = true;
     swipeCount: number = 0;
 
@@ -42,18 +42,18 @@ export class RouletteComponent {
         private events: Events) {
         
         this.stackList = new Array ();
-        events.subscribe('restaurant-recommend', (list) => {
+        this.events.subscribe('restaurant-recommend', (list) => {
             this.recommendedRestaurants = list;
-            
-            if (this.firstLoad = false){
-                this.stackList = this.recommendedRestaurants.slice(0).reverse();
-                this.displayedRestaurant = this.recommendedRestaurants[0];
-                this.swipeCount = 0;
-            }
         });
-        events.subscribe('restaurant-more-detail', (data) => {
+        this.events.subscribe('restaurant-more-detail', (data) => {
             this.displayedRestaurant = data;
             this.getMoreDetail(this.displayedRestaurant);
+        });
+        this.events.subscribe('reload-slides', () => {
+            if (!this.firstPlay){
+                this.generateRestaurants();
+                console.log("--- reloaded slides ---");
+            }
         });
 
     
@@ -144,15 +144,14 @@ export class RouletteComponent {
         console.log("more detail");
     }
 
-    generateRestaurant(): void {
+    generateRestaurants(): void {
         this.showPlayButton = false;
         this.rouletteService.chooseRestaurants();
-
-        this.firstLoad = false;
 
         this.stackList = this.recommendedRestaurants.slice(0).reverse();
         this.displayedRestaurant = this.recommendedRestaurants[0];
         this.swipeCount = 0;
+        this.firstPlay = false;
 
         console.log("Recommended Restaurants: ");
         console.log(this.recommendedRestaurants);

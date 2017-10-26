@@ -1,4 +1,10 @@
 <ion-content no-bounce>
+    <ion-item class="menu-header" menuClose="roulette-menu">
+        <ion-avatar item-left id="user-avatar">
+            <img id="avatar-image" draggable="false" src="https://placeholdit.co//i/50x50">
+        </ion-avatar>
+        <h2 text-center>Jordan Michaels</h2>
+    </ion-item>
     <div *ngFor="let restaurant of recentRestaurants">
         <h3>{{ restaurant.name }}</h3>
         <div>
