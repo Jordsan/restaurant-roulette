@@ -8,6 +8,8 @@ import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 import { HttpModule } from '@angular/http';
 import { SwingModule } from 'angular2-swing';
 
+import { SuperTabsModule } from 'ionic2-super-tabs';
+
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -22,6 +24,7 @@ import { RouletteComponent } from '../components/roulette/roulette.component';
 import { RestaurantDetailComponent } from '../components/restaurant-detail/restaurant-detail.component';
 import { PreferencesComponent } from '../components/preferences/preferences.component';
 import { CuisinesComponent } from '../components/menu-content/cuisines.component';
+import { RestaurantHoursComponent } from '../components/restaurant-hours/restaurant-hours.component';
 
 
 @NgModule({
@@ -34,7 +37,8 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
         RouletteComponent,
         RestaurantDetailComponent,
         PreferencesComponent,
-        CuisinesComponent
+        CuisinesComponent,
+        RestaurantHoursComponent
     ],
     imports: [
         BrowserModule,
@@ -47,7 +51,7 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
                     popoverLeave: "popover-md-pop-out"
                 }
             }
-        })
+        }),
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -56,13 +60,14 @@ import { CuisinesComponent } from '../components/menu-content/cuisines.component
         PreferencesPage,
         RoulettePage,
         ProfilePage,
-        CuisinesComponent
+        CuisinesComponent,
+        RestaurantHoursComponent
     ],
     providers: [
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         StatusBar,
         SplashScreen,
-        NativePageTransitions        
+        NativePageTransitions
     ]
 })
 export class AppModule { }

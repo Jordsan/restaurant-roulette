@@ -1,32 +1,70 @@
 <ion-grid id="detail-grid">
     <img draggable="false" class="restaurant-image" src="https://placeholdit.co//i/350x250?&bg=eee&fc=000000&text=Restaurant Image">
     <ion-row>
-        <ion-col>
+        <ion-col id="header-col">
             <h2><strong>{{ restaurant.name }}</strong></h2>
         </ion-col>
-        <button ion-button item-right id="more-button" (click)="getMoreDetail()">
+        <!-- <button ion-button item-right id="more-button" (click)="getMoreDetail()">
             <ion-icon id="more-detail-icon" name="md-information-circle"></ion-icon>
-        </button>
+        </button> -->
     </ion-row>
     <ion-row>
-        <ion-col>
-            {{ restaurant.types }} <br>
+        <ion-col id="tags-list">
+            | <span *ngFor="let type of restaurant.types">{{ type }} | </span>
         </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
-            {{ restaurant.distance }} mi.
+            {{ restaurant.address }}
         </ion-col>
-        <ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-6>
+            <span id="star-number">{{ restaurant.rating }}</span>
+            <span id="star-span" *ngFor="let star of getStarCount(restaurant.rating)">
+                <ion-icon class="star-icon" *ngIf="star == 1.0" name="ios-star"></ion-icon>
+                <ion-icon class="star-icon" *ngIf="star == 0.5" name="ios-star-half"></ion-icon>
+                <ion-icon class="star-icon" *ngIf="star == 0.0" name="ios-star-outline"></ion-icon>
+            </span>
+        </ion-col>
+        <ion-col col-3>
             {{ symbol }}
         </ion-col>
+        <ion-col col-3>
+            {{ restaurant.distance }} mi.
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col id="open-status-col" text-center>
+            <button mode="ios" ion-button id="hours-button" (click)="hoursPopover($event)">
+                <div class="no-hover">
+                    <strong *ngIf="restaurant.open" id="open-status">Open Now</strong>
+                    <strong *ngIf="!restaurant.open" id="closed-status">Closed Now</strong>
+                    <span>  -  </span>
+                    <span>{{ restaurant.hours[dateNum] }}</span>
+                </div>
+            </button>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col id="see-hours-col">
+            <span id="see-hours">(Tap to See More Hours)</span>
+            <!-- <ion-icon id="more-detail-icon" name="md-information-circle"></ion-icon> -->
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col id="reviews-col">
+            View X Reviews
+        </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
-            Details
+            Menu: <a href="{{ restaurant.menu }}">{{ restaurant.menu }}</a>
         </ion-col>
+    </ion-row>
+    <ion-row>
         <ion-col>
-            Details
+            Phone: {{ restaurant.phone }}
         </ion-col>
     </ion-row>
 </ion-grid>

@@ -30,3 +30,107 @@
     font-size: 30px;
     color: color($colors, primary);
 }
+
+#star-number {
+    padding-right: 5px;
+}
+
+.star-icon {
+    color: color($colors, primary);
+}
+
+.ios #open-status-col {
+    padding-top: 4px;
+}
+
+#open-status-col {
+    margin-bottom: 0px;
+    padding-bottom: 4px;
+}
+
+#open-status {
+    color: green;
+}
+
+#closed-status {
+    color: red;
+}
+
+#tags-list {
+    padding: 0;
+    font-size: 1.2rem;
+}
+
+#header-col {
+    padding-bottom: 0;
+}
+
+#hours-button {
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    font-size: 1.4rem;
+    width: 100%;
+    background: none;
+    color: black;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#hours-button :hover{
+    border: 1px solid color($colors, primary);
+}
+
+#hours-button .button-inner :hover {
+    border: none;
+}
+
+#hours-button .no-hover :hover {
+    border: none !important;
+}
+
+.no-hover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 4px;
+}
+
+#more-detail-icon {
+    margin: auto;
+    position: relative;
+    padding-left: 6px;
+    font-size: 2.2rem;
+}
+
+#reviews-col {
+    padding-top: 0;
+}
+
+#see-hours-col {
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+}
+
+#see-hours {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    font-size: 1.2rem;
+}
+
+.popover-content {
+    margin-top: 30% !important;
+}
+
+.ios .popover-content {
+    margin-top: 32.5% !important;
+}
+
+.wp .popover-content {
+    margin-top: 27.5% !important;
+}
+

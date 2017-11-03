@@ -59,12 +59,12 @@ export class RouletteComponent {
     
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 1.35), Math.abs(offsetY) / (element.offsetHeight / 2)), 1);            },
+                return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 2.0), Math.abs(offsetY) / (element.offsetHeight / 2.5)), 1);            },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
             },
             throwOutDistance: (d) => {
-                return 800;
+                return 600;
             },
             allowedDirections: [Direction.LEFT, Direction.RIGHT, Direction.UP]
         };

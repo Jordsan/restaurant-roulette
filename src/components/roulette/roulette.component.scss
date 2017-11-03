@@ -74,22 +74,24 @@ restaurant-detail {
 }
 
 .button-container {
+    padding: 0;
+    margin: 0;
     position: absolute;
     bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    height: 60px;
-    margin-bottom: 5%;
+    height: 12%;
+    border: 2px solid color($colors, menu-gray);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background: color($colors, menu-gray);
 }
 
 .button-row {
     position: absolute;
-    bottom: 5px;
+    
     width: 100%;
-    height: 40px;
-    margin-left: 2.5%;
-    margin-right: 2.5%;
+    height: 100%;
+    left: 0;
+   
 }
 
 .left-right-icons {
@@ -97,36 +99,47 @@ restaurant-detail {
 }
 
 .left-right-buttons {
-    margin: 0px !important;
-    height: 40px;
+    width: 55px !important;
+    height: 55px;
+    border: 2px solid white;
+    border-radius: 50%;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    -webkit-box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.3);
 }
 
-#select-button {
-    position: relative;
+#select-button {   
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
     border-radius: 50%;
-    border: 1px solid white;
-    width: 60px;
-    height: 60px;
-    margin: 0px !important;
-    margin-top: 10px !important;
+    border: 2px solid white;
+    width: 65px;
+    height: 65px;
     font-size: 3em;
     padding: 0px;
-    text-shadow: none;
-    box-shadow: none;
+    -webkit-box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 12px 2px rgba(0, 0, 0, 0.3);
 }
 
-#left-button {
-    position: relative;
-    border: 1px solid white;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    margin: 5px -20px 5px 0 !important;
-}
+// #left-button {
+//     width: 55px;
+//     height: 55px;
+//     border: 1px solid white;
+//     border-radius: 50%;
+//     margin: 0.4rem 0.2rem;
+// }
 
-#right-button {
-    position: relative;
-    border: 1px solid white;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    margin: 5px 0 5px -20px !important;
+// #right-button {
+//     width: 55px;
+//     height: 55px;
+//     border: 1px solid white;
+//     border-radius: 50%;
+//     margin: 0.4rem 0.2rem;
+// }
+
+#thumbs-down-icon {
+    padding-top: 4px;
 }
