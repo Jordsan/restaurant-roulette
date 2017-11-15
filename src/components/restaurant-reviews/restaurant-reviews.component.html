@@ -1,0 +1,48 @@
+<ion-grid>
+    <ion-row>
+        <ion-col text-center>
+            <h4 id="reviews-header">Reviews</h4>
+        </ion-col>
+    </ion-row>
+    <div id="review-wrapper" *ngFor="let review of reviews">
+        <ion-row>
+            <ion-col col-2 no-padding class="review-avatar-col">
+                <ion-avatar item-left class="review-user-avatar">
+                    <img class="avatar-image" draggable="false" src="{{ review.profile_photo_url }}">
+                </ion-avatar>
+            </ion-col>
+            <ion-col text-left col-10 class="review-entry-header">
+                <ion-row no-padding>
+                    <ion-col class="user-review-header-col" no-padding>
+                        <button ion-button class="user-review-header" (click)="openUserProfile(review.author_url)"><u>{{ review.author_name }}</u></button>
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding>
+                    <ion-col float-left col-5 no-padding>
+                        <div class="rating-wrapper">
+                            <span class="review-star-number">{{ review.rating }}</span>
+                            <span class="star-span" *ngFor="let star of getStarCount(review.rating)">
+                                <ion-icon class="review-star-icon" *ngIf="star == 1.0" name="ios-star"></ion-icon>
+                                <ion-icon class="review-star-icon" *ngIf="star == 0.5" name="ios-star-half"></ion-icon>
+                                <ion-icon class="review-star-icon" *ngIf="star == 0.0" name="ios-star-outline"></ion-icon>
+                            </span>
+                        </div>
+                    </ion-col>
+                    <ion-col text-left col-7>
+                        <span class="review-time-detail"><i>{{ review.relative_time_description }}</i></span>
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <span class="review-description">
+                {{ review.text }}
+                </span>
+            </ion-col>
+        </ion-row>
+        <hr>
+    </div>
+</ion-grid>

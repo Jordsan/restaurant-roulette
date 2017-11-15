@@ -4,6 +4,7 @@ import { Restaurant } from '../../components/restaurants/restaurant';
 import { ProfileService } from '../../services/profile/profile.service';
 
 import { RestaurantHoursComponent } from '../restaurant-hours/restaurant-hours.component'
+import { RestaurantReviewsComponent } from '../restaurant-reviews/restaurant-reviews.component'
 
 
 @Component({
@@ -39,14 +40,26 @@ export class RestaurantDetailComponent implements OnInit {
     }
 
     hoursPopover(myEvent) {
-        let popover = this.popoverCntrl.create(RestaurantHoursComponent, { 'list': this.restaurant.hours },
+        let popover = this.popoverCntrl.create(RestaurantHoursComponent, { 'hoursList': this.restaurant.hours },
             {cssClass: 'restaurant-hours-popover'});
         popover.present({
             //ev: myEvent
         });
 
         popover.onDidDismiss(() => {
-            console.log(this.restaurant.hours);
+
+        })
+    }
+
+    reviewsPopover(myEvent) {
+        let popover = this.popoverCntrl.create(RestaurantReviewsComponent, { 'reviewsList': this.restaurant.reviews },
+            {cssClass: 'restaurant-reviews-popover'});
+        popover.present({
+            //ev: myEvent
+        });
+
+        popover.onDidDismiss(() => {
+
         })
     }
 

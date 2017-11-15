@@ -1,14 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
 
+import { ThemeableBrowser } from '@ionic-native/themeable-browser';
+import { ThemeableBrowserMock } from '@ionic-native-mocks/themeable-browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { InAppBrowserMock } from '@ionic-native-mocks/in-app-browser';
+
 import { HttpModule } from '@angular/http';
 import { SwingModule } from 'angular2-swing';
 
+
 import { SuperTabsModule } from 'ionic2-super-tabs';
+
 
 import { MyApp } from './app.component';
 
@@ -25,6 +33,7 @@ import { RestaurantDetailComponent } from '../components/restaurant-detail/resta
 import { PreferencesComponent } from '../components/preferences/preferences.component';
 import { CuisinesComponent } from '../components/menu-content/cuisines.component';
 import { RestaurantHoursComponent } from '../components/restaurant-hours/restaurant-hours.component';
+import { RestaurantReviewsComponent } from '../components/restaurant-reviews/restaurant-reviews.component';
 
 
 @NgModule({
@@ -38,7 +47,8 @@ import { RestaurantHoursComponent } from '../components/restaurant-hours/restaur
         RestaurantDetailComponent,
         PreferencesComponent,
         CuisinesComponent,
-        RestaurantHoursComponent
+        RestaurantHoursComponent,
+        RestaurantReviewsComponent
     ],
     imports: [
         BrowserModule,
@@ -61,13 +71,17 @@ import { RestaurantHoursComponent } from '../components/restaurant-hours/restaur
         RoulettePage,
         ProfilePage,
         CuisinesComponent,
-        RestaurantHoursComponent
+        RestaurantHoursComponent,
+        RestaurantReviewsComponent
     ],
     providers: [
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         StatusBar,
         SplashScreen,
-        NativePageTransitions
+        NativePageTransitions,
+        { provide: ThemeableBrowser, useClass: ThemeableBrowserMock },
+        InAppBrowser
+        //{ provide: InAppBrowser, useClass: InAppBrowserMock }
     ]
 })
 export class AppModule { }

@@ -2,7 +2,9 @@
     <img draggable="false" class="restaurant-image" src="https://placeholdit.co//i/350x250?&bg=eee&fc=000000&text=Restaurant Image">
     <ion-row>
         <ion-col id="header-col">
-            <h2><strong>{{ restaurant.name }}</strong></h2>
+            <h2>
+                <strong>{{ restaurant.name }}</strong>
+            </h2>
         </ion-col>
         <!-- <button ion-button item-right id="more-button" (click)="getMoreDetail()">
             <ion-icon id="more-detail-icon" name="md-information-circle"></ion-icon>
@@ -10,7 +12,9 @@
     </ion-row>
     <ion-row>
         <ion-col id="tags-list">
-            | <span *ngFor="let type of restaurant.types">{{ type }} | </span>
+            <p>|
+                <span *ngFor="let type of restaurant.types">{{ type }} | </span>
+            </p>
         </ion-col>
     </ion-row>
     <ion-row>
@@ -20,11 +24,13 @@
     </ion-row>
     <ion-row>
         <ion-col col-6>
-            <span id="star-number">{{ restaurant.rating }}</span>
-            <span id="star-span" *ngFor="let star of getStarCount(restaurant.rating)">
-                <ion-icon class="star-icon" *ngIf="star == 1.0" name="ios-star"></ion-icon>
-                <ion-icon class="star-icon" *ngIf="star == 0.5" name="ios-star-half"></ion-icon>
-                <ion-icon class="star-icon" *ngIf="star == 0.0" name="ios-star-outline"></ion-icon>
+            <span class="detail-star-span">
+                <span id="star-number">{{ restaurant.rating }}</span>
+                <span id="star-span" *ngFor="let star of getStarCount(restaurant.rating)">
+                    <ion-icon class="star-icon" *ngIf="star == 1.0" name="ios-star"></ion-icon>
+                    <ion-icon class="star-icon" *ngIf="star == 0.5" name="ios-star-half"></ion-icon>
+                    <ion-icon class="star-icon" *ngIf="star == 0.0" name="ios-star-outline"></ion-icon>
+                </span>
             </span>
         </ion-col>
         <ion-col col-3>
@@ -40,26 +46,24 @@
                 <div class="no-hover">
                     <strong *ngIf="restaurant.open" id="open-status">Open Now</strong>
                     <strong *ngIf="!restaurant.open" id="closed-status">Closed Now</strong>
-                    <span>  -  </span>
+                    <span> - </span>
                     <span>{{ restaurant.hours[dateNum] }}</span>
+                    <p id="see-hours">(Tap to See More Hours)</p>
                 </div>
             </button>
         </ion-col>
     </ion-row>
     <ion-row>
-        <ion-col id="see-hours-col">
-            <span id="see-hours">(Tap to See More Hours)</span>
-            <!-- <ion-icon id="more-detail-icon" name="md-information-circle"></ion-icon> -->
-        </ion-col>
-    </ion-row>
-    <ion-row>
         <ion-col id="reviews-col">
-            View X Reviews
+            <button mode="ios" ion-button id="reviews-button" (click)="reviewsPopover($event)">
+                <u>View {{ restaurant.reviews.length }} Reviews</u>
+            </button>
         </ion-col>
     </ion-row>
     <ion-row>
         <ion-col>
-            Menu: <a href="{{ restaurant.menu }}">{{ restaurant.menu }}</a>
+            Menu:
+            <a href="{{ restaurant.menu }}">{{ restaurant.menu }}</a>
         </ion-col>
     </ion-row>
     <ion-row>

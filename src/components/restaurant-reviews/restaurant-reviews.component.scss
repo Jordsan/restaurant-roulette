@@ -1,0 +1,54 @@
+restaurant-review {
+    #reviews-header {
+        margin-top: .8rem !important;
+    }
+}
+
+.review-star-number {
+    padding-right: 5px;
+}
+
+.review-star-icon {
+    padding-left: 2px;
+    color: color($colors, primary);
+}
+
+.rating-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.review-user-avatar {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.review-entry-header {
+    padding-top: 10px !important;
+    padding-left: 10px !important;
+}
+
+.user-review-header {
+    height: 100%;
+    display: flex;
+    font-size: 1.4rem;
+    float: left;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.user-review-header-col {
+    margin-bottom: 2px;
+}
+
+.review-time-detail {
+    color: gray;
+    font-size: 1.2rem;
+}

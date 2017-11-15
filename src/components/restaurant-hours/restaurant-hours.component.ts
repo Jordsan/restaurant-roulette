@@ -12,7 +12,7 @@ export class RestaurantHoursComponent {
 
     constructor(private navParams: NavParams, private events: Events) {
         this.hours = new Array();
-        this.hours = this.navParams.get('list');
+        this.hours = this.navParams.get('hoursList');
     }
 
 }

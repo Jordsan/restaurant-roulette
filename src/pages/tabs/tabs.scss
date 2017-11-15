@@ -1,28 +1,21 @@
 // page-tabs {
-    
-        
 // }
-
 // .ios #header-pad {
 //     height: 0px;
 //     padding-top: 20px;
 // }
-
 // .fixed-content {
 //     margin-bottom: 0px !important;
 // }
 // .scroll-content {
 //     margin-bottom: 0px !important;
 // }
-
-
-page-tabs {
-    
-}
+page-tabs {}
 
 .fixed-content {
     margin-bottom: 0px !important;
 }
+
 .scroll-content {
     margin-bottom: 0px !important;
 }
@@ -31,9 +24,12 @@ page-tabs {
     height: 40px;
 }
 
-.ios .tabbar {
+.platform-ios.platform-cordova:not(.fullscreen) .tabbar {
     height: 60px;
     padding-top: 20px;
 }
 
-
+// .ios .tabbar {
+//     height: 60px;
+//     padding-top: 20px;
+// }
