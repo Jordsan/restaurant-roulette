@@ -1,54 +1,84 @@
-restaurant-review {
-    #reviews-header {
-        margin-top: .8rem !important;
-    }
-}
+// restaurant-review {
+//     #reviews-header {
+//         margin-top: .8rem !important;
+//     }
+// }
 
-.review-star-number {
-    padding-right: 5px;
-}
+// #reviews-sub-header-row {
+//     border-bottom: 1px solid color($colors, menu-gray);
+// }
 
-.review-star-icon {
-    padding-left: 2px;
-    color: color($colors, primary);
-}
+// .review-star-number {
+//     padding-right: 5px;
+// }
 
-.rating-wrapper {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
+// .review-star-icon {
+//     padding-left: 2px;
+//     color: color($colors, primary);
+// }
 
-.review-user-avatar {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    margin: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
+// .review-avg-star-number {
+//     font-size: 2.4rem;
+//     padding-right: 10px;
+//     padding-left: 5px;
+// }
 
-.review-entry-header {
-    padding-top: 10px !important;
-    padding-left: 10px !important;
-}
+// .review-avg-star-icon {
+//     font-size: 2.8rem;
+//     padding-left: 2px;
+//     color: color($colors, primary);
+// }
 
-.user-review-header {
-    height: 100%;
-    display: flex;
-    font-size: 1.4rem;
-    float: left;
-    padding-right: 10px;
-    padding-left: 10px;
-}
+// .rating-wrapper {
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+// }
 
-.user-review-header-col {
-    margin-bottom: 2px;
-}
+// .review-user-avatar {
+//     width: 45px;
+//     height: 45px;
+//     position: absolute;
+//     margin: auto;
+//     left: 0;
+//     right: 0;
+//     top: 0;
+//     bottom: 0;
+// }
 
-.review-time-detail {
-    color: gray;
-    font-size: 1.2rem;
-}
+// .review-entry-header {
+//     padding-top: 10px !important;
+//     padding-left: 10px !important;
+// }
+
+// .user-review-header {
+//     height: 100%;
+//     display: flex;
+//     font-size: 1.4rem;
+//     float: left;
+//     padding-right: 10px;
+//     padding-left: 10px;
+// }
+
+// .user-review-header-col {
+//     margin-bottom: 4px;
+// }
+
+// .review-time-detail {
+//     color: gray;
+//     font-size: 1.2rem;
+// }
+
+// #reviews-num {
+//     position: absolute;
+//     bottom: 0;
+//     margin-bottom: 13px;
+//     padding-left: 10px;
+//     color: gray;
+//     font-size: 1.6rem;
+// }
+
+// .review-description-col {
+//     padding-left: 12px;
+//     padding-right: 12px;
+// }

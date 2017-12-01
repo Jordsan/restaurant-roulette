@@ -5,6 +5,8 @@ import { ThemeableBrowser,
          ThemeableBrowserOptions, 
          ThemeableBrowserObject } from '@ionic-native/themeable-browser';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Restaurant } from '../../components/restaurants/restaurant';
+
 
 @Component({
     selector: 'restaurant-reviews',
@@ -12,11 +14,44 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 })
 export class RestaurantReviewsComponent {
 
+    restaurant: Restaurant;
     reviews: Review[];
+    avgRating: number;
 
     constructor(private navParams: NavParams, private themeableBrowser: ThemeableBrowser, private iab: InAppBrowser) {
         this.reviews = new Array();
-        this.reviews = this.navParams.get('reviewsList');
+        this.restaurant = this.navParams.get('currRestaurant');
+        this.reviews = this.restaurant.reviews;
+        this.avgRating = this.restaurant.rating;
+    }
+
+    getAvgStarCount(): number[] {
+        let num = Math.round(this.avgRating * 2) / 2;
+        let stars = new Array();
+
+        for (let i = 0; i < 5; i++) {
+            if (num > 0) {
+                if (num > 1) {
+                    stars.push(1);
+                    num -= 1;
+                }
+                else {
+                    if (num === 1) {
+                        stars.push(1);
+                        num -= 1;
+                    }
+                    else {
+                        stars.push(0.5);
+                        num -= .5;
+                    }
+                }
+            }
+            else {
+                stars.push(0);
+            }
+        }
+
+        return stars;
     }
 
     getStarCount(rating: number): number[] {

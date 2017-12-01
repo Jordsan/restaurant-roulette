@@ -2,17 +2,9 @@
     .restaurant-hours-popover {
         .popover-content {
             border: 2px solid color($colors, primary);
-            margin-top: 32.5% !important;
+            margin-top: 20% !important;
             width: 85% !important;
-            height: 37%;
-        }
-    }
-    .restaurant-reviews-popover {
-        .popover-content {
-            border: 2px solid color($colors, primary);
-            margin-top: 32.5% !important;
-            width: 85% !important;
-            height: 37%;
+            height: 37.5%;
         }
     }
 }
@@ -21,17 +13,9 @@
     .restaurant-hours-popover {
         .popover-content {
             border: 2px solid color($colors, primary);
-            margin-top: 30% !important;
+            margin-top: 17.5% !important;
             width: 85% !important;
-            height: 37%;
-        }
-    }
-    .restaurant-reviews-popover {
-        .popover-content {
-            border: 2px solid color($colors, primary);
-            margin-top: 30% !important;
-            width: 85% !important;
-            height: 37%;
+            height: 38%;
         }
     }
 }
@@ -40,39 +24,38 @@
     .restaurant-hours-popover {
         .popover-content {
             border: 2px solid color($colors, primary);
-            margin-top: 30% !important;
+            margin-top: 20% !important;
             width: 85% !important;
-            height: 37%;
-        }
-    }
-    .restaurant-reviews-popover {
-        .popover-content {
-            border: 2px solid color($colors, primary);
-            margin-top: 30% !important;
-            width: 85% !important;
-            height: 37%;
+            height: 37.5%;
         }
     }
 }
 
+.vertical-align-content>* {
+    display: flex!important;
+    align-content: center!important;
+    align-items: center!important;
+    height: 100%;
+}
+
+.vertical-align-icon>* {
+    display: flex!important;
+    align-content: center!important;
+    align-items: center!important;
+    justify-content: center !important;
+    height: 100%;
+}
+
 #detail-grid {
+    position: relative;
+    width: 100%;
     padding: 0px;
     height: 100%;
 }
 
-#more-button {
-    position: absolute;
-    right: 0;
-    background: transparent;
-    padding-right: 5px;
-    margin: 0;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-}
-
 .restaurant-image {
     width: 100%;
-    height: 50%;
+    height: 40%;
     border: 2px solid black;
     border-radius: 10px;
     user-select: none;
@@ -80,6 +63,15 @@
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+#header-col {
+    padding-bottom: 0;
+}
+
+#tags-list {
+    padding: 0;
+    font-size: 1.2rem;
 }
 
 #more-detail-icon {
@@ -91,16 +83,29 @@
     padding-right: 5px;
 }
 
-.detail-star-span {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .star-icon {
     padding-left: 2px;
     color: color($colors, primary);
+}
+
+.icon-col {
+    padding-left: 0;
+    padding-right: 0px;
+}
+
+.content-col {
+    padding-left: 0;
+}
+
+.content-col-inner {
+    display: inline-block;
+    padding-left: 4px; // vertical-align: middle;
+    // height: 100%;
+}
+
+.detail-icon {
+    color: color($colors, primary);
+    font-size: 2.6rem;
 }
 
 .ios #open-status-col {
@@ -121,15 +126,6 @@
     color: red;
 }
 
-#tags-list {
-    padding: 0;
-    font-size: 1.2rem;
-}
-
-#header-col {
-    padding-bottom: 0;
-}
-
 #hours-button {
     height: 36px;
     margin: 0;
@@ -140,6 +136,11 @@
     color: black;
     -webkit-box-shadow: none;
     box-shadow: none;
+    text-align: left !important;
+}
+
+#hours-button .button-inner {
+    justify-content: flex-start;
 }
 
 #hours-button :hover {
@@ -154,28 +155,8 @@
     border: none !important;
 }
 
-#reviews-button {
-    height: 28px;
-    margin: 0;
-    padding: 0;
-    font-size: 1.4rem;
-    width: 100%;
-    background: none;
-    color: blue;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-#reviews-button :hover {
-    border: 1px solid color($colors, primary);
-}
-
-#reviews-button .button-inner :hover {
-    border: none;
-}
-
-#reviews-button .no-hover :hover {
-    border: none !important;
+.hours-inner>* {
+    font-size: 1.3rem;
 }
 
 .no-hover {
@@ -187,19 +168,112 @@
     top: 4px;
 }
 
-#more-detail-icon {
-    margin: auto;
-    position: relative;
-    padding-left: 6px;
-    font-size: 2.2rem;
-}
-
-#reviews-col {
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
 #see-hours {
+    text-align: center;
     padding-top: 2px;
     font-size: 1.2rem;
+}
+
+// Reviews
+#reviews-header {
+    margin-top: .8rem !important;
+}
+
+#reviews-sub-header-row {
+    border-bottom: 1px solid color($colors, menu-gray); // text-align: center;
+}
+
+#review-header-item .label-ios {
+    margin: 0 !important;
+}
+
+.review-star-number {
+    padding-right: 5px;
+}
+
+.review-star-icon {
+    padding-left: 2px;
+    color: color($colors, primary);
+}
+
+.review-avg-star-number {
+    font-size: 2.4rem;
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+.review-avg-star-icon {
+    font-size: 2.8rem;
+    padding-left: 2px;
+    color: color($colors, primary);
+}
+
+.rating-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.review-user-avatar {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.review-entry-header {
+    padding-top: 10px !important;
+    padding-left: 10px !important;
+}
+
+.user-review-header {
+    height: 100%;
+    display: flex;
+    font-size: 1.4rem;
+    float: left;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.user-review-header-col {
+    margin-bottom: 4px;
+}
+
+.review-time-detail {
+    color: gray;
+    font-size: 1.2rem;
+}
+
+#reviews-num {
+    padding-left: 10px;
+    color: gray;
+    font-size: 1.6rem;
+}
+
+.review-description-col {
+    padding-left: 12px;
+    padding-right: 12px;
+    text-align: left;
+}
+
+#view-selector {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+}
+
+#review-scroll {
+    width: 100%;
+    height: 100%;
+}
+
+#review-scroll ::-webkit-scrollbar {
+    display: none;
 }

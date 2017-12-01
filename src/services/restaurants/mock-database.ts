@@ -12,7 +12,7 @@ export class MockDatabase {
             types: ["take-out", "sit-down", "delivery"],
             distance: 1,
             price: 1,
-            address: "438 Penfield Rd, Fairfield, CT 06824",
+            address: "438 Penfield Rd, Fairfield, CT 06824 test test test test test",
             hours: [
                 "Monday: 11:30 AM – 1:00 AM",
                 "Tuesday: 11:30 AM – 1:00 AM",

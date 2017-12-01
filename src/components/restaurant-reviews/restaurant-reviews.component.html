@@ -1,8 +1,32 @@
 <ion-grid>
     <ion-row>
-        <ion-col text-center>
-            <h4 id="reviews-header">Reviews</h4>
+        <ion-col no-padding text-center>
+            <h3 id="reviews-header">Reviews</h3>
         </ion-col>
+    </ion-row>
+    <ion-row id="reviews-sub-header-row">
+        <ion-col no-padding>
+            <ion-item no-lines no-padding>
+                <span float-left class="detail-star-span">
+                    <span class="review-avg-star-number">{{ avgRating }}</span>
+                    <span class="review-avg-star-span" *ngFor="let star of getAvgStarCount()">
+                        <ion-icon class="review-avg-star-icon" *ngIf="star == 1.0" name="ios-star"></ion-icon>
+                        <ion-icon class="review-avg-star-icon" *ngIf="star == 0.5" name="ios-star-half"></ion-icon>
+                        <ion-icon class="review-avg-star-icon" *ngIf="star == 0.0" name="ios-star-outline"></ion-icon>
+                    </span>
+
+                </span>
+                <span id="reviews-num">
+                    {{ reviews.length }} Reviews
+                </span>
+            </ion-item>
+
+        </ion-col>
+        <!-- <ion-col col-4>
+            <span id="reviews-num">
+                {{ reviews.length }} Reviews
+            </span>
+        </ion-col> -->
     </ion-row>
     <div id="review-wrapper" *ngFor="let review of reviews">
         <ion-row>
@@ -14,7 +38,9 @@
             <ion-col text-left col-10 class="review-entry-header">
                 <ion-row no-padding>
                     <ion-col class="user-review-header-col" no-padding>
-                        <button ion-button class="user-review-header" (click)="openUserProfile(review.author_url)"><u>{{ review.author_name }}</u></button>
+                        <button ion-button class="user-review-header" (click)="openUserProfile(review.author_url)">
+                            <u>{{ review.author_name }}</u>
+                        </button>
                     </ion-col>
                 </ion-row>
                 <ion-row no-padding>
@@ -29,7 +55,9 @@
                         </div>
                     </ion-col>
                     <ion-col text-left col-7>
-                        <span class="review-time-detail"><i>{{ review.relative_time_description }}</i></span>
+                        <span class="review-time-detail">
+                            <i>{{ review.relative_time_description }}</i>
+                        </span>
                     </ion-col>
                 </ion-row>
 
@@ -37,9 +65,9 @@
 
         </ion-row>
         <ion-row>
-            <ion-col>
+            <ion-col class="review-description-col">
                 <span class="review-description">
-                {{ review.text }}
+                    {{ review.text }}
                 </span>
             </ion-col>
         </ion-row>
