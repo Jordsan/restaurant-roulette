@@ -24,12 +24,12 @@ page-tabs {}
     height: 40px;
 }
 
-.platform-ios.platform-cordova:not(.fullscreen) .tabbar {
-    height: 60px;
-    padding-top: 20px;
-}
-
-// .ios .tabbar {
+// .platform-ios.platform-cordova:not(.fullscreen) .tabbar {
 //     height: 60px;
 //     padding-top: 20px;
 // }
+
+.ios .tabbar {
+    height: 60px;
+    padding-top: 20px;
+}

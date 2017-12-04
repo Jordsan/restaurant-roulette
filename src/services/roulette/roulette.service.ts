@@ -4,7 +4,7 @@ import { Events } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 
 import { ProfileService } from '../profile/profile.service';
-import { PreferencesFilterService } from '../preferences-filter/preferences-filter.service';
+import { RestaurantsService } from '../restaurants/restaurants.service';
 
 
 @Injectable()
@@ -15,7 +15,7 @@ export class RouletteService {
     private restaurants: Restaurant[];
 
     constructor(
-        private preferencesFilterService: PreferencesFilterService,
+        private restaurantsService: RestaurantsService,
         private profileService: ProfileService,
         private events: Events
     ) {
@@ -64,7 +64,7 @@ export class RouletteService {
     }
 
     chooseRestaurants(): void {
-        this.masterFilteredList = this.preferencesFilterService.getFilteredRestaurants();
+        this.masterFilteredList = this.restaurantsService.getFilteredRestaurants();
         this.recentRestaurants = this.profileService.getRecentsList();
 
         if (this.recentRestaurants.length > 0) {

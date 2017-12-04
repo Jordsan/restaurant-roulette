@@ -8,7 +8,6 @@ import { RoulettePage } from '../pages/roulette/roulette';
 import { ProfilePage } from '../pages/profile/profile';
 import { PreferencesComponent } from '../components/preferences/preferences.component';
 
-import { PreferencesFilterService } from '../services/preferences-filter/preferences-filter.service';
 import { RestaurantsService } from '../services/restaurants/restaurants.service';
 import { ProfileService } from '../services/profile/profile.service';
 import { RouletteService } from '../services/roulette/roulette.service';
@@ -17,7 +16,7 @@ import { RouletteService } from '../services/roulette/roulette.service';
 
 @Component({
     templateUrl: 'app.html',
-    providers: [PreferencesFilterService, RestaurantsService, ProfileService, RouletteService],
+    providers: [RestaurantsService, ProfileService, RouletteService],
 })
 export class MyApp {
     rootPage: any = TabsPage;
@@ -27,13 +26,15 @@ export class MyApp {
         platform: Platform,
         private statusBar: StatusBar,
         private splashScreen: SplashScreen,
-        private preferencesFilterService: PreferencesFilterService,
+        private restaurantsService: RestaurantsService,
     ) {
         platform.ready().then(() => {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+
+            this.restaurantsService.getLocation();
         });
     }
 }

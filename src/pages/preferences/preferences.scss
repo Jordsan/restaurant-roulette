@@ -5,3 +5,7 @@ page-preferences {
 #preferences-content{
     background: color($colors, menu-gray);
 }
+
+#preferences-content .scroll-content {
+    padding-top: 0 !important;
+}

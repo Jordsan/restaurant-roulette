@@ -3,6 +3,8 @@ import { Events } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { RouletteService } from '../../services/roulette/roulette.service';
 import { ProfileService } from '../../services/profile/profile.service';
+import { RestaurantsService } from '../../services/restaurants/restaurants.service';
+
 
 import {
     Direction,
@@ -23,7 +25,7 @@ export class RouletteComponent {
 
     @ViewChild('swingStack') swingStack: SwingStackComponent;
     @ViewChildren('cardStack') swingCards: QueryList<SwingCardComponent>;
-    
+
     recommendedRestaurants: Restaurant[];
     stackList: Restaurant[];
 
@@ -39,9 +41,10 @@ export class RouletteComponent {
 
     constructor(private rouletteService: RouletteService,
         private profileService: ProfileService,
-        private events: Events) {
-        
-        this.stackList = new Array ();
+        private events: Events,
+        private testz: RestaurantsService) {
+
+        this.stackList = new Array();
         this.events.subscribe('restaurant-recommend', (list) => {
             this.recommendedRestaurants = list;
         });
@@ -50,16 +53,17 @@ export class RouletteComponent {
             this.getMoreDetail(this.displayedRestaurant);
         });
         this.events.subscribe('reload-slides', () => {
-            if (!this.firstPlay){
+            if (!this.firstPlay) {
                 this.generateRestaurants();
                 console.log("--- reloaded slides ---");
             }
         });
 
-    
+
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
-                return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 2.0), Math.abs(offsetY) / (element.offsetHeight / 2.5)), 1);            },
+                return Math.min(Math.max(Math.abs(offsetX) / (element.offsetWidth / 2.0), Math.abs(offsetY) / (element.offsetHeight / 2.5)), 1);
+            },
             transform: (element, x, y, r) => {
                 this.onItemMove(element, x, y, r);
             },
@@ -111,26 +115,26 @@ export class RouletteComponent {
             this.removedRestaurant = this.stackList.pop();
             if (swipe) {
                 //this.recentCard = 'You liked: ' + removedCard.email;
-                console.log("Swipe right - " + swipe);            
-            } 
+                console.log("Swipe right - " + swipe);
+            }
             else {
                 //this.recentCard = 'You disliked: ' + removedCard.email;
                 console.log("Swipe left - " + swipe);
             }
             console.log(this.stackList);
             this.swipeCount++;
-            if (this.swipeCount === this.recommendedRestaurants.length){
+            if (this.swipeCount === this.recommendedRestaurants.length) {
                 this.showPlayButton = true;
             }
             this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
         }
-    }   
+    }
 
     selectCard(restaurant: Restaurant): void {
         if (this.stackList.length > 0) {
             this.selectedRestaurant = this.stackList.pop();
             this.swipeCount++;
-            if (this.swipeCount === this.recommendedRestaurants.length){
+            if (this.swipeCount === this.recommendedRestaurants.length) {
                 this.showPlayButton = true;
             }
             this.displayedRestaurant = this.recommendedRestaurants[this.swipeCount];
@@ -155,7 +159,11 @@ export class RouletteComponent {
 
         console.log("Recommended Restaurants: ");
         console.log(this.recommendedRestaurants);
-        console.log("Stack List: " );
+        console.log("Stack List: ");
         console.log(this.stackList);
+    }
+
+    test() {
+        this.testz.test();
     }
 }

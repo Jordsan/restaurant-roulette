@@ -20,6 +20,7 @@ preferences {
     width: 95%;
     position: relative;
     margin: 2.5%;
+    margin-top: 5%;
     height: 40px;
 }
 
@@ -52,9 +53,4 @@ preferences {
 
 #last-item {
     border-bottom: none;
-}
-
-#keyword-input {
-    margin: 0;
-    width: 95%;
 }

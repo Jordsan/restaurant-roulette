@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Events, NavController, NavParams } from 'ionic-angular';
-import { PreferencesFilterService } from '../../services/preferences-filter/preferences-filter.service';
 
 
 export class Pair {

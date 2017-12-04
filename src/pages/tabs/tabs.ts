@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Events } from 'ionic-angular';
 import { ViewChild } from '@angular/core';
 
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+//import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 // import { SuperTabsController } from 'ionic2-super-tabs';
 // import { SuperTabs} from 'ionic2-super-tabs';
@@ -12,8 +12,8 @@ import { ProfilePage } from '../profile/profile';
 import { PreferencesPage } from '../preferences/preferences';
 
 import { Restaurant } from '../../components/restaurants/restaurant';
-import { PreferencesFilterService } from '../../services/preferences-filter/preferences-filter.service';
 import { RouletteService } from '../../services/roulette/roulette.service';
+import { RestaurantsService } from '../../services/restaurants/restaurants.service';
 
 @Component({
     selector: 'page-tabs',
@@ -32,9 +32,9 @@ export class TabsPage {
     tabIndex: number = 0;
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
-        private preferencesFilterService: PreferencesFilterService,
+        private restaurantsService: RestaurantsService,
         private rouletteService: RouletteService,
-        private nativePageTransitions: NativePageTransitions,
+        //private nativePageTransitions: NativePageTransitions,
         private events: Events,){
         //private superTabsCtrl: SuperTabsController) {
 
@@ -50,7 +50,7 @@ export class TabsPage {
     }
 
     getFilteredRestaurants(): void {
-        this.preferencesFilterService.filterRestaurants();
+        this.restaurantsService.filterRestaurants();
         if (this.reloadSlides) {
             console.log("preference change detected!");
 
@@ -61,7 +61,7 @@ export class TabsPage {
             console.log('NO PREF CHANGE');
         }
 
-        for (let restaurant of this.preferencesFilterService.getFilteredRestaurants()) {
+        for (let restaurant of this.restaurantsService.getFilteredRestaurants()) {
             console.log("Filtered Restaurant List: " + restaurant.name);
         }
     }

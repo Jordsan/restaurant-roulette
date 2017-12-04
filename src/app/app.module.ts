@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { ThemeableBrowser } from '@ionic-native/themeable-browser';
 import { ThemeableBrowserMock } from '@ionic-native-mocks/themeable-browser';
@@ -25,7 +26,6 @@ import { PreferencesPage } from '../pages/preferences/preferences';
 import { RoulettePage } from '../pages/roulette/roulette';
 import { ProfilePage } from '../pages/profile/profile';
 
-import { PreferencesFilterService } from '../services/preferences-filter/preferences-filter.service';
 import { RestaurantsService } from '../services/restaurants/restaurants.service';
 
 import { RouletteComponent } from '../components/roulette/roulette.component';
@@ -75,11 +75,12 @@ import { RestaurantReviewsComponent } from '../components/restaurant-reviews/res
         RestaurantReviewsComponent
     ],
     providers: [
+        Geolocation,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         StatusBar,
         SplashScreen,
-        NativePageTransitions,
-        { provide: ThemeableBrowser, useClass: ThemeableBrowserMock },
+        //NativePageTransitions,
+        //{ provide: ThemeableBrowser, useClass: ThemeableBrowserMock },
         InAppBrowser
         //{ provide: InAppBrowser, useClass: InAppBrowserMock }
     ]
