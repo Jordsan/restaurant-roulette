@@ -24,6 +24,8 @@ export class RestaurantsService {
     private distanceRange: number = 25;
 
     private baseURL: string = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?';
+    private detailsURL: string = 'https://maps.googleapis.com/maps/api/place/details/json?';
+
     private key: string = 'AIzaSyDI0Kc6bbpWPIq9uCtSAd9xqvPucbViy-k';
     private lat: number;
     private long; number;
@@ -68,6 +70,35 @@ export class RestaurantsService {
             this.http.get(query)
                 .subscribe(data => {
                     console.log('my data: ', data.json());
+                    for (let entry of data.json()['results']) {
+                        let finalURL = this.detailsURL + `placeid=${entry.place_id}&key=${this.key}`;
+                        this.http.get(finalURL)
+                            .subscribe(details => {
+                                // console.log(details.json());
+                                let detailsObj = details.json()['result'];
+                                //console.log(details);
+                                let currRestaurant: Restaurant = {
+                                    id: detailsObj.place_id,
+                                    name: detailsObj.name,
+                                    address: detailsObj.formatted_address,
+                                    phone: detailsObj.formatted_phone_number,
+                                    menu: detailsObj.website,
+                                    reviews: null,
+
+                                    distance: 0,
+                                    price: detailsObj.price_level,
+                                    rating: detailsObj.rating,
+
+                                    hours: null,
+                                    open: null,
+
+                                    tags: null,
+                                    types: detailsObj.types
+                                }
+                                console.log(currRestaurant);
+                            });
+
+                    }
                 });
         }
     }

@@ -8,7 +8,7 @@ export interface Review {
 }
 
 export interface Restaurant {
-    id: number;
+    id: string;
     name: string;
     address: string;
     phone: string;

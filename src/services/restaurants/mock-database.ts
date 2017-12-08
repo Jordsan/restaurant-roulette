@@ -6,7 +6,7 @@ export class MockDatabase {
     constructor() {
         this.list = new Array();
         this.list.push({
-            id: 0,
+            id: '0',
             name: "Chinese Restaurant",
             tags: ["Chinese"],
             types: ["take-out", "sit-down", "delivery"],
@@ -70,7 +70,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 1,
+            id: '1',
             name: "Mexican Restaurant",
             tags: ["Mexican"],
             types: ["sit-down", "counter-service"],
@@ -134,7 +134,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 2,
+            id: '2',
             name: "Italian Restaurant",
             tags: ["Italian"],
             types: ["sit-down", "counter-service"],
@@ -198,7 +198,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 3,
+            id: '3',
             name: "American Restaurant",
             tags: ["American"],
             types: ["counter-service", "sit-down"],
@@ -262,7 +262,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 4,
+            id: '4',
             name: "Mikes Restaurant",
             tags: ["Italian"],
             types: ["take-out", "counter-service", "sit-down"],
@@ -326,7 +326,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 5,
+            id: '5',
             name: "Archies Restaurant",
             tags: ["American"],
             types: ["sit-down", "take-out"],
@@ -390,7 +390,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 6,
+            id: '6',
             name: "Garden Catering Restaurant",
             tags: ["American"],
             types: ["counter-service", "take-out"],
@@ -454,7 +454,7 @@ export class MockDatabase {
             ]
         });
         this.list.push({
-            id: 7,
+            id: '7',
             name: "Duchess Fast Food Restaurant",
             tags: ["American"],
             types: ["drive-through", "counter-service"],
