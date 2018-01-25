@@ -164,6 +164,9 @@ export class RouletteComponent {
     }
 
     test() {
-        this.testz.test();
+        this.testz.generateRestaurants();
+    }
+    test2() {
+        console.log(this.testz.getAllRestaurants());
     }
 }

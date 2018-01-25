@@ -8,12 +8,12 @@ import 'rxjs/add/operator/map';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { Restaurant } from '../../components/restaurants/restaurant';
-import { MockDatabase } from './mock-database';
+// import { MockDatabase } from './mock-database';
 
 
 @Injectable()
 export class RestaurantsService {
-    private db: MockDatabase;
+    // private db: MockDatabase;
 
     private restaurants: Restaurant[];
 
@@ -31,10 +31,10 @@ export class RestaurantsService {
     private long; number;
 
     constructor(private geolocation: Geolocation, private events: Events, private http: Http) {
-        this.db = new MockDatabase();
+        // this.db = new MockDatabase();
         this.restaurants = new Array();
 
-        this.restaurants = this.db.getList();
+        // this.restaurants = this.db.getList();
 
         this.cuisinesList = new Array();
         this.filteredRestaurants = new Array();
@@ -64,57 +64,63 @@ export class RestaurantsService {
         return this.restaurants;
     }
 
-    test(): void {
-        for (let query of this.generateQueries()) {
-            console.log(query);
-            this.http.get(query)
-                .subscribe(data => {
-                    console.log('my data: ', data.json());
-                    for (let entry of data.json()['results']) {
-                        let finalURL = this.detailsURL + `placeid=${entry.place_id}&key=${this.key}`;
-                        this.http.get(finalURL)
-                            .subscribe(details => {
-                                // console.log(details.json());
-                                let detailsObj = details.json()['result'];
-                                //console.log(details);
-                                let currRestaurant: Restaurant = {
-                                    id: detailsObj.place_id,
-                                    name: detailsObj.name,
-                                    address: detailsObj.formatted_address,
-                                    phone: detailsObj.formatted_phone_number,
-                                    menu: detailsObj.website,
-                                    reviews: null,
+    generateRestaurants(): void {
+        //filter out non matches?
+        //    use methods in file already
 
-                                    distance: 0,
-                                    price: detailsObj.price_level,
-                                    rating: detailsObj.rating,
+        // ensure within distance range
 
-                                    hours: null,
-                                    open: null,
+        let restaurantList: Restaurant[] = new Array();
+        let query = this.generateQuery();
 
-                                    tags: null,
-                                    types: detailsObj.types
-                                }
-                                console.log(currRestaurant);
-                            });
+        this.http.get(query).map(data => data.json()).subscribe(data => {
+            for (let entry of data['results']) {
+                let finalURL = this.detailsURL + `placeid=${entry.place_id}&key=${this.key}`;
+                this.http.get(finalURL).subscribe(details => {
+                    // console.log(details.json());
+                    let detailsObj = details.json()['result'];
+                    // console.log(detailsObj);
+                    let currRestaurant: Restaurant = {
+                        id: detailsObj.place_id !== undefined ? detailsObj.place_id : null,
+                        name: detailsObj.name !== undefined ? detailsObj.name : null,
+                        address: detailsObj.formatted_address !== undefined ? detailsObj.formatted_address : null,
+                        phone: detailsObj.formatted_phone_number !== undefined ? detailsObj.formatted_phone_number : null,
+                        menu: detailsObj.website !== undefined ? detailsObj.website : null,
+                        reviews: detailsObj.reviews !== undefined ? detailsObj.reviews : null,
 
+                        distance: (detailsObj.geometry.location.lat !== undefined && detailsObj.geometry.location.lng !== undefined) ? 
+                            this.calculateDistance(detailsObj.geometry.location.lat, detailsObj.geometry.location.lng) : null,
+                        price: detailsObj.price_level !== undefined ? detailsObj.price_level : null,
+                        rating: detailsObj.rating !== undefined ? detailsObj.rating : null,
+
+                        hours: detailsObj.opening_hours.weekday_text !== undefined ? detailsObj.opening_hours.weekday_text : null,
+                        open: detailsObj.opening_hours.open_now !== undefined ? detailsObj.opening_hours.open_now : null,
+
+                        tags: null,
+                        types: detailsObj.types !== undefined ? detailsObj.types : null,
                     }
+                    this.restaurants.push(currRestaurant);
                 });
-        }
+            }
+        });
     }
 
-    generateQueries(): string[] {
-        let queryList: string[] = new Array();
+    generateQuery(): string {
+        let query: string = '';
         let keywords: string = '';
 
         if (this.cuisinesList.length === 0) {
-            queryList.push(`${this.baseURL}` +
+            query = `${this.baseURL}` +
                 `location=${this.lat},${this.long}` +
                 `&radius=${this.toMeters(this.distanceRange)}` +
+                // `&rankby=distance` +
                 `&minprice=${this.priceRange.lower - 1}` +
                 `&maxprice=${this.priceRange.upper - 1}` +
+                `&keyword=American%20OR%20Chinese%20OR%20French%20OR%20Greek%20OR%20` +
+                `Indian%20OR%20Italian%20OR%20Japanese%20OR%20Korean%20OR%20` +
+                `Mediterranean%20OR%20Mexican%20OR%20Vietnamese` +
                 `&type=restaurant` +
-                `&key=${this.key}`);
+                `&key=${this.key}`;
         }
         else {
             for (let i = 0; i < this.cuisinesList.length; i++) {
@@ -125,17 +131,18 @@ export class RestaurantsService {
                     keywords += this.cuisinesList[i];
                 }
             }
-            queryList.push(`${this.baseURL}` +
+            query = `${this.baseURL}` +
                 `location=${this.lat},${this.long}` +
                 `&radius=${this.toMeters(this.distanceRange)}` +
+                // `&rankby=distance` +
                 `&minprice=${this.priceRange.lower - 1}` +
                 `&maxprice=${this.priceRange.upper - 1}` +
                 `&keyword=${keywords}` +
                 `&type=restaurant` +
-                `&key=${this.key}`);
+                `&key=${this.key}`;
         }
 
-        return queryList;
+        return query;
     }
 
     toMeters(input: number): number {
@@ -150,6 +157,16 @@ export class RestaurantsService {
         }).catch((error) => {
             console.log('Error getting location', error);
         });
+    }
+
+    calculateDistance(lat2: number, long2: number) {
+        var p = 0.017453292519943295;
+        var c = Math.cos;
+        var a = 0.5 - c((lat2 - this.lat) * p) / 2 +
+            c(this.lat * p) * c(lat2 * p) *
+            (1 - c((long2 - this.long) * p)) / 2;
+
+        return 12742 * Math.asin(Math.sqrt(a)) * 0.62137119;
     }
 
     broadcastListChange(list: Restaurant[]): void {

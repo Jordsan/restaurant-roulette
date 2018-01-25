@@ -67,12 +67,14 @@ export class RouletteService {
         this.masterFilteredList = this.restaurantsService.getFilteredRestaurants();
         this.recentRestaurants = this.profileService.getRecentsList();
 
-        if (this.recentRestaurants.length > 0) {
-            this.recommendRestaurants();
-        }
-        else {
-            this.broadcastListChange(this.masterFilteredList);
-        }
+        // if (this.recentRestaurants.length > 0) {
+        //     this.recommendRestaurants();
+        // }
+        // else {
+        //     this.broadcastListChange(this.masterFilteredList);
+        // }
+        this.broadcastListChange(this.masterFilteredList);
+
     }
 
     recommendRestaurants(): void {
