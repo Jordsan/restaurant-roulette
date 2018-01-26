@@ -35,7 +35,7 @@ export class TabsPage {
         private restaurantsService: RestaurantsService,
         private rouletteService: RouletteService,
         //private nativePageTransitions: NativePageTransitions,
-        private events: Events,){
+        private events: Events, ) {
         //private superTabsCtrl: SuperTabsController) {
 
         this.events.subscribe('preferences-change-listener', (value) => {
@@ -43,26 +43,25 @@ export class TabsPage {
         });
     };
 
-    onTabSelect(ev: any): void {
-        if (ev.index === 1){
-            this.getFilteredRestaurants();
-        }
-    }
-
     getFilteredRestaurants(): void {
-        this.restaurantsService.filterRestaurants();
-        if (this.reloadSlides) {
-            console.log("preference change detected!");
+        if (this.loaded) {
+            if (this.reloadSlides) {
+                this.restaurantsService.generateRestaurants();
+                console.log("preference change detected!");
 
-            this.events.publish('reload-slides');
-            this.reloadSlides = false;
+                this.events.publish('reload-slides');
+                this.reloadSlides = false;
+            }
+            else {
+                console.log('NO PREF CHANGE');
+            }
         }
         else {
-            console.log('NO PREF CHANGE');
+            this.loaded = true;
         }
 
-        for (let restaurant of this.restaurantsService.getFilteredRestaurants()) {
-            console.log("Filtered Restaurant List: " + restaurant.name);
-        }
+        // for (let restaurant of this.restaurantsService.getFilteredRestaurants()) {
+        //     console.log("Filtered Restaurant List: " + restaurant.name);
+        // }
     }
 }

@@ -3,8 +3,6 @@ import { Events } from 'ionic-angular';
 import { Restaurant } from '../../components/restaurants/restaurant';
 import { RouletteService } from '../../services/roulette/roulette.service';
 import { ProfileService } from '../../services/profile/profile.service';
-import { RestaurantsService } from '../../services/restaurants/restaurants.service';
-
 
 import {
     Direction,
@@ -41,16 +39,21 @@ export class RouletteComponent {
 
     constructor(private rouletteService: RouletteService,
         private profileService: ProfileService,
-        private events: Events,
-        private testz: RestaurantsService) {
+        private events: Events) {
 
         this.stackList = new Array();
         this.events.subscribe('restaurant-recommend', (list) => {
             this.recommendedRestaurants = list;
+            this.stackList = this.recommendedRestaurants.slice(0).reverse();
+            this.displayedRestaurant = this.recommendedRestaurants[0];
+
+            console.log("Stack List: ");
+            console.log(this.stackList);
         });
         this.events.subscribe('restaurant-more-detail', (data) => {
             this.displayedRestaurant = data;
             this.getMoreDetail(this.displayedRestaurant);
+            console.log('test');
         });
         this.events.subscribe('reload-slides', () => {
             if (!this.firstPlay) {
@@ -58,7 +61,6 @@ export class RouletteComponent {
                 console.log("--- reloaded slides ---");
             }
         });
-
 
         this.stackConfig = {
             throwOutConfidence: (offsetX, offsetY, element) => {
@@ -152,21 +154,8 @@ export class RouletteComponent {
         this.showPlayButton = false;
         this.rouletteService.chooseRestaurants();
 
-        this.stackList = this.recommendedRestaurants.slice(0).reverse();
-        this.displayedRestaurant = this.recommendedRestaurants[0];
         this.swipeCount = 0;
         this.firstPlay = false;
-
-        console.log("Recommended Restaurants: ");
-        console.log(this.recommendedRestaurants);
-        console.log("Stack List: ");
-        console.log(this.stackList);
     }
 
-    test() {
-        this.testz.generateRestaurants();
-    }
-    test2() {
-        console.log(this.testz.getAllRestaurants());
-    }
 }

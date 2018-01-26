@@ -22,6 +22,11 @@ export class RouletteService {
         this.restaurants = new Array();
         this.masterFilteredList = new Array();
         this.recentRestaurants = new Array();
+
+        events.subscribe('restaurant-generation', (list) => {
+            this.masterFilteredList = list;
+            this.broadcastListChange(this.masterFilteredList);
+        });
     }
 
 
@@ -64,7 +69,7 @@ export class RouletteService {
     }
 
     chooseRestaurants(): void {
-        this.masterFilteredList = this.restaurantsService.getFilteredRestaurants();
+        this.restaurantsService.generateRestaurants();
         this.recentRestaurants = this.profileService.getRecentsList();
 
         // if (this.recentRestaurants.length > 0) {
@@ -73,7 +78,7 @@ export class RouletteService {
         // else {
         //     this.broadcastListChange(this.masterFilteredList);
         // }
-        this.broadcastListChange(this.masterFilteredList);
+
 
     }
 

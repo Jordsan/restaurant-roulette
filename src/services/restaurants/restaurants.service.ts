@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Events } from 'ionic-angular';
 
-import { Observable } from 'rxjs/Observable';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Geolocation } from '@ionic-native/geolocation';
@@ -15,7 +15,7 @@ import { Restaurant } from '../../components/restaurants/restaurant';
 export class RestaurantsService {
     // private db: MockDatabase;
 
-    private restaurants: Restaurant[];
+    restaurants: Restaurant[];
 
     private filteredRestaurants: Restaurant[];
     private cuisinesList: string[];
@@ -64,22 +64,46 @@ export class RestaurantsService {
         return this.restaurants;
     }
 
-    generateRestaurants(): void {
+    generateRestaurants(): any {
+        console.log('gen rest called');
         //filter out non matches?
         //    use methods in file already
 
         // ensure within distance range
 
         let restaurantList: Restaurant[] = new Array();
+        let queryList: string[] = new Array();
         let query = this.generateQuery();
 
         this.http.get(query).map(data => data.json()).subscribe(data => {
             for (let entry of data['results']) {
                 let finalURL = this.detailsURL + `placeid=${entry.place_id}&key=${this.key}`;
-                this.http.get(finalURL).subscribe(details => {
-                    // console.log(details.json());
-                    let detailsObj = details.json()['result'];
-                    // console.log(detailsObj);
+                queryList.push(finalURL)
+            }
+            Observable.forkJoin(
+                this.http.get(queryList[0]).map((res: Response) => res.json()),
+                this.http.get(queryList[1]).map((res: Response) => res.json()),
+                this.http.get(queryList[2]).map((res: Response) => res.json()),
+                this.http.get(queryList[3]).map((res: Response) => res.json()),
+                this.http.get(queryList[4]).map((res: Response) => res.json()),
+                this.http.get(queryList[5]).map((res: Response) => res.json()),
+                this.http.get(queryList[6]).map((res: Response) => res.json()),
+                this.http.get(queryList[7]).map((res: Response) => res.json()),
+                this.http.get(queryList[8]).map((res: Response) => res.json()),
+                this.http.get(queryList[9]).map((res: Response) => res.json()),
+                this.http.get(queryList[10]).map((res: Response) => res.json()),
+                this.http.get(queryList[11]).map((res: Response) => res.json()),
+                this.http.get(queryList[12]).map((res: Response) => res.json()),
+                this.http.get(queryList[13]).map((res: Response) => res.json()),
+                this.http.get(queryList[14]).map((res: Response) => res.json()),
+                this.http.get(queryList[15]).map((res: Response) => res.json()),
+                this.http.get(queryList[16]).map((res: Response) => res.json()),
+                this.http.get(queryList[17]).map((res: Response) => res.json()),
+                this.http.get(queryList[18]).map((res: Response) => res.json()),
+                this.http.get(queryList[19]).map((res: Response) => res.json()),
+            ).subscribe(data => {
+                for (let entry of data) {
+                    let detailsObj = entry['result'];
                     let currRestaurant: Restaurant = {
                         id: detailsObj.place_id !== undefined ? detailsObj.place_id : null,
                         name: detailsObj.name !== undefined ? detailsObj.name : null,
@@ -88,20 +112,23 @@ export class RestaurantsService {
                         menu: detailsObj.website !== undefined ? detailsObj.website : null,
                         reviews: detailsObj.reviews !== undefined ? detailsObj.reviews : null,
 
-                        distance: (detailsObj.geometry.location.lat !== undefined && detailsObj.geometry.location.lng !== undefined) ? 
+                        distance: (detailsObj.geometry !== undefined && detailsObj.geometry.location.lat !== undefined && detailsObj.geometry.location.lng !== undefined) ?
                             this.calculateDistance(detailsObj.geometry.location.lat, detailsObj.geometry.location.lng) : null,
                         price: detailsObj.price_level !== undefined ? detailsObj.price_level : null,
                         rating: detailsObj.rating !== undefined ? detailsObj.rating : null,
 
-                        hours: detailsObj.opening_hours.weekday_text !== undefined ? detailsObj.opening_hours.weekday_text : null,
-                        open: detailsObj.opening_hours.open_now !== undefined ? detailsObj.opening_hours.open_now : null,
+                        hours: detailsObj.opening_hours !== undefined ? detailsObj.opening_hours.weekday_text : null,
+                        open: detailsObj.opening_hours !== undefined ? detailsObj.opening_hours.open_now : null,
 
                         tags: null,
                         types: detailsObj.types !== undefined ? detailsObj.types : null,
                     }
-                    this.restaurants.push(currRestaurant);
-                });
-            }
+                    restaurantList.push(currRestaurant);
+                }
+                this.restaurants = restaurantList;
+                this.events.publish('restaurant-generation', restaurantList);
+                return restaurantList;
+            });
         });
     }
 
@@ -145,8 +172,14 @@ export class RestaurantsService {
         return query;
     }
 
-    toMeters(input: number): number {
-        return input * 1609.344;
+    calculateDistance(lat2: number, long2: number) {
+        var p = 0.017453292519943295;
+        var c = Math.cos;
+        var a = 0.5 - c((lat2 - this.lat) * p) / 2 +
+            c(this.lat * p) * c(lat2 * p) *
+            (1 - c((long2 - this.long) * p)) / 2;
+
+        return 12742 * Math.asin(Math.sqrt(a)) * 0.62137119;
     }
 
     getLocation(): void {
@@ -159,80 +192,8 @@ export class RestaurantsService {
         });
     }
 
-    calculateDistance(lat2: number, long2: number) {
-        var p = 0.017453292519943295;
-        var c = Math.cos;
-        var a = 0.5 - c((lat2 - this.lat) * p) / 2 +
-            c(this.lat * p) * c(lat2 * p) *
-            (1 - c((long2 - this.long) * p)) / 2;
-
-        return 12742 * Math.asin(Math.sqrt(a)) * 0.62137119;
-    }
-
-    broadcastListChange(list: Restaurant[]): void {
-        this.events.publish('restaurant-filter', list);
-    }
-
-    filterRestaurants(): void {
-        console.log("dist: " + this.distanceRange);
-        console.log("price: ");
-        console.log(this.priceRange);
-        console.log("types: ");
-        console.log(this.restaurantTypes);
-        let tempList = this.getAllRestaurants().filter((restaurant: Restaurant) => {
-            let pass = false;
-            for (let tag of restaurant.tags) {
-                if (this.cuisinesList.includes(tag)) {
-                    pass = true;
-                    break;
-                }
-                else {
-                    pass = false;
-                }
-            }
-            if (pass) {
-                for (let type of restaurant.types) {
-                    if (this.restaurantTypes.includes(type)) {
-                        pass = true;
-                        break;
-                    }
-                    else {
-                        pass = false;
-                    }
-                }
-            }
-            if (pass) {
-                if (restaurant.distance <= this.distanceRange &&
-                    restaurant.price >= this.priceRange.lower &&
-                    restaurant.price <= this.priceRange.upper) {
-                    pass = true;
-                }
-                else {
-                    pass = false;
-                }
-            }
-            return pass;
-        });
-
-        this.filteredRestaurants = tempList;
-        if (tempList.length > 0) {
-            this.broadcastListChange(tempList);
-        }
-        else {
-            console.log("no restaurants made it through the filters, entire list returned");
-            this.filteredRestaurants = this.getAllRestaurants();
-            this.broadcastListChange(this.getAllRestaurants());
-            console.log(this.getAllRestaurants());
-        }
-    }
-
-    getFilteredRestaurants(): Restaurant[] {
-        if (this.filteredRestaurants.length > 0) {
-            return this.filteredRestaurants;
-        }
-        else {
-            return this.getAllRestaurants();
-        }
+    toMeters(input: number): number {
+        return input * 1609.344;
     }
 
     getCuisinesList(): string[] {

@@ -16,7 +16,7 @@ import { HttpModule } from '@angular/http';
 import { SwingModule } from 'angular2-swing';
 
 
-import { SuperTabsModule } from 'ionic2-super-tabs';
+// import { SuperTabsModule } from 'ionic2-super-tabs';
 
 
 import { MyApp } from './app.component';
@@ -26,7 +26,7 @@ import { PreferencesPage } from '../pages/preferences/preferences';
 import { RoulettePage } from '../pages/roulette/roulette';
 import { ProfilePage } from '../pages/profile/profile';
 
-import { RestaurantsService } from '../services/restaurants/restaurants.service';
+// import { RestaurantsService } from '../services/restaurants/restaurants.service';
 
 import { RouletteComponent } from '../components/roulette/roulette.component';
 import { RestaurantDetailComponent } from '../components/restaurant-detail/restaurant-detail.component';
